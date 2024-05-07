@@ -102,7 +102,6 @@ class TicketsFragment : Fragment(), OnClickListener {
     }
 
     private fun navigateToGeneroFragment(int: Int) {
-        Log.i("TicketsFragment", "navigateToGeneroFragment")
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 

@@ -42,7 +42,6 @@ class PreviewFragment : Fragment(), OnClickListener {
 
 
     private fun navigateToGeneroFragment() {
-        Log.i("PreviewFragment", "navigateToGeneroFragment")
         navigateBack()
     }
 
