@@ -1,6 +1,7 @@
 package com.example.filmania.Preview
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,21 +42,15 @@ class PreviewFragment : Fragment(), OnClickListener {
 
 
     private fun navigateToGeneroFragment() {
-        val ticketsFragment = TicketsFragment()
-
-
-        val fragmentManager = requireActivity().supportFragmentManager
-
-
-        val transaction = fragmentManager.beginTransaction()
-
-
-        transaction.replace(android.R.id.content, ticketsFragment)
-        transaction.addToBackStack(null)
-
-        // Commit de la transacción
-        transaction.commit()
+        navigateBack()
     }
+
+    // Function to navigate back to the previous fragment
+    private fun navigateBack() {
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.popBackStack()
+    }
+
 
 
 
