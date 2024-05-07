@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="cornerRadius_card">5dp</dimen>
+    <dimen name="card_elevation_login">150dp</dimen>
+    <dimen name="common_padding_default">16dp</dimen>
+    <dimen name="main_textfield_width">240dp</dimen>
+    <dimen name="common_padding_min">8dp</dimen>
+    <dimen name="cardView">150dp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="text_size_30sp">30sp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+</resources>

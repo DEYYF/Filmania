@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_ticket"
+        android:title="@string/home"
+        android:icon="@drawable/ticket_simple_svgrepo_com"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_play"
+        android:title="@string/play"
+        android:icon="@drawable/play_svgrepo_com"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_search"
+        android:title="@string/search"
+        android:icon="@drawable/search_alt_2_svgrepo_com"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_news"
+        android:title="@string/news"
+        android:icon="@drawable/news_publishing_svgrepo_com"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_library"
+        android:title="@string/library"
+        android:icon="@drawable/library_svgrepo_com"
+        app:showAsAction="never" />
+
+</menu>

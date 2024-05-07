@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">Filmania</string>
+    <string name="hint_username">Usuario</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_password2">Repite la Contraseña</string>
+    <string name="hint_pais">Pais</string>
+    <string name="hint_genero">Genero:</string>
+    <string name="No_tienes_cuenta">Todavia no tienes cuenta?</string>
+    <string name="Register_text">Registrate</string>
+    <string name="Iniciar_sesion">Iniciar Sesión</string>
+    <string name="hint_email">Correo</string>
+    <string name="hint_genero_hombre">Hombre</string>
+    <string name="hint_genero_mujer">Mujer</string>
+    <string name="hint_img">Imagen de perfil</string>
+    <string name="succesfull">Registro exitoso</string>
+    <string name="FailedString">Registro fallido</string>
+    <string name="home">Home</string>
+    <string name="play">Play</string>
+    <string name="search">Buscador</string>
+    <string name="news">Noticias</string>
+    <string name="library">Libreria</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="peliculas_recomendadas">Peliculas Recomendadas</string>
+    <string name="imagen_album">Imagen Peli_serie</string>
+    <string name="imagen_peli_serie">Imagen peli y serie</string>
+    <string name="series_recomendadas">Series Recomendadas</string>
+    <string name="visto_anteriormente">Visto anteriormente</string>
+    <string name="hint_buscador">Escribe tu busqueda</string>
+    <string name="hint_buscador_rc">Nombre Pelicula/Serie</string>
+    <string name="imagen_noticia">Imagen Noticia</string>
+    <string name="recomendadas">Recomendadas</string>
+    <string name="todas">Todas</string>
+    <string name="para_ti">Para ti</string>
+    <string name="guardar">Guardar</string>
+    <string name="selecciona_genero">Seleccion tus 3 generos Favoritos</string>
+    <string name="peliculas">Peliculas</string>
+    <string name="series">Series</string>
+    <string name="imagen_cancion">Imagen_preview</string>
+    <string name="Ver">VER</string>
+    <string name="nombre_pelis">Nombre_Peliculas</string>
+    <string name="year_pelis">Año pelis</string>
+    <string name="duracion">Duracion</string>
+    <string name="descripcion">Descripcion</string>
+    <string name="trailer">Trailer</string>
+    <string name="back">Volver</string>
+</resources>

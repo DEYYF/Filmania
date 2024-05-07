@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".InicioSesion.IniciarSesionActivity">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvInicioSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:cardCornerRadius="@dimen/cornerRadius_card"
+        app:cardElevation="@dimen/card_elevation_login"
+        android:backgroundTint="@color/Darkblue"
+        android:layout_marginBottom="@dimen/common_padding_default">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/common_padding_default"
+            android:layout_margin="@dimen/common_padding_default">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUsername"
+                android:layout_width="@dimen/main_textfield_width"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_padding_default"
+                android:hint="@string/hint_username"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tilPassword"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColorHint="@color/white"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/white"
+                    android:background="@drawable/border"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPassword"
+                android:layout_width="@dimen/main_textfield_width"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/common_padding_default"
+                android:hint="@string/hint_password"
+                android:textColorHint="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:passwordToggleEnabled = "true"
+                app:passwordToggleTint="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/tilUsername"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:textColor="@color/white"
+                    android:background="@drawable/border"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <TextView
+                android:id="@+id/tvNoTienesCuenta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/No_tienes_cuenta"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/tilPassword"
+                android:layout_marginTop="@dimen/common_padding_default"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btRegistro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Register_text"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@id/tilPassword"
+                android:layout_marginTop="@dimen/common_padding_default"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvNoTienesCuenta"
+                app:layout_constraintBottom_toBottomOf="@id/tvNoTienesCuenta"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Dialog" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btIniciarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Iniciar_sesion"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/yellow"
+                app:layout_constraintTop_toBottomOf="@id/btRegistro"
+                android:layout_marginTop="@dimen/common_padding_default"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

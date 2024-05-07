@@ -1,0 +1,165 @@
+package com.example.filmania.Peliculasyseries
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmania.Preview.PreviewFragment
+import com.example.filmania.Preview.Preview_Serie_Fragment
+import com.example.filmania.R
+import com.example.filmania.Tickets.adapter.PeliculasAdapter
+import com.example.filmania.Tickets.adapter.SeriesAdapter
+import com.example.filmania.common.Entyty.Genero
+import com.example.filmania.common.Entyty.Noticias
+import com.example.filmania.common.Entyty.Peliculas
+import com.example.filmania.common.Entyty.Series
+import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.databinding.FragmentPeliculasySeriesBinding
+import com.example.filmania.databinding.FragmentTicketsBinding
+
+class PeliculasySeriesFragment : Fragment(), OnClickListener {
+
+
+    private lateinit var mBinding: FragmentPeliculasySeriesBinding
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        mBinding = FragmentPeliculasySeriesBinding.inflate(inflater, container, false)
+
+        return mBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView(){
+
+        val peliculasAdapter = PeliculasAdapter(this)
+        val peliculasLayoutManager = GridLayoutManager(requireContext(), 2)
+
+
+        mBinding.rcPeliculas.layoutManager = peliculasLayoutManager
+        mBinding.rcPeliculas.adapter = peliculasAdapter
+
+        val seriesAdapter = SeriesAdapter(this)
+        val seriesLayoutManager = GridLayoutManager(requireContext(), 2)
+
+
+        mBinding.rcSeries.layoutManager = seriesLayoutManager
+        mBinding.rcSeries.adapter = seriesAdapter
+
+        cargarPeliculas()
+        cargarSeries()
+    }
+
+
+
+    private fun cargarPeliculas(){
+        val peliculas = mutableListOf<Peliculas>()
+
+        peliculas.add(Peliculas(1, "The Dark Knight", "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent", "1 hora y 30 Minutos", "2008", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qJ2tW6WMUDux911r6m7haRef0WH.jpg"))
+        peliculas.add(Peliculas(2, "The Godfather", "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family.", "2 horas y 30 Minutos", "1972", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"))
+        peliculas.add(Peliculas(3, "The Shawshank Redemption, 1994", "Two imprisoned", "2 horas y 30 Minutos", "1994", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"))
+        peliculas.add(Peliculas(4, "The Lord of the Rings: The Return of the King", "Aragorn is revealed as the heir to the ancient kings as he, Gandalf and the other members of the broken fellowship struggle to save Gondor from Sauron's forces.", "2 horas y 30 Minutos", "2003", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"))
+        peliculas.add(Peliculas(5, "The Lord of the Rings: The Return of the King", "Aragorn is revealed as the heir to the ancient kings as he, Gandalf and the other members of the broken fellowship struggle to save Gondor from Sauron's forces.", "2 horas y 30 Minutos", "2003", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"))
+        peliculas.add(Peliculas(6, "The Lord of the Rings: The Return of the King", "Aragorn is revealed as the heir to the ancient kings as he, Gandalf and the other members of the broken fellowship struggle to save Gondor from Sauron's forces.", "2 horas y 30 Minutos", "2003", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"))
+        peliculas.add(Peliculas(7, "The Lord of the Rings: The Return of the King", "Aragorn is revealed as the heir to the ancient kings as he, Gandalf and the other members of the broken fellowship struggle to save Gondor from Sauron's forces.", "2 horas y 30 Minutos", "2003", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"))
+        peliculas.add(Peliculas(8, "The Lord of the Rings: The Return of the King", "Aragorn is revealed as the heir to the ancient kings as he, Gandalf and the other members of the broken fellowship struggle to save Gondor from Sauron's forces.", "2 horas y 30 Minutos", "2003", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"))
+
+
+        val peliculasAdapter = mBinding.rcPeliculas.adapter as PeliculasAdapter
+        peliculasAdapter.submitList(peliculas)
+    }
+
+
+    private fun cargarSeries(){
+        val series = mutableListOf<Series>()
+
+        series.add(Series(1, "The Mandalorian", "The Mandalorian es una serie de televisión web de espacio de ciencia ficción estadounidense que se estrenó en Disney+ el 12 de noviembre de 2019. Ambientada en el universo de Star Wars, la serie tiene lugar cinco años después de los eventos de Return of the Jedi y sigue a un solitario pistolero más allá de los límites de la Nueva República.", 2, "2019","" ,"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9k9Hwq8qMMs0DhB9z5AdkTzrUu1.jpg"))
+        series.add(Series(2, "The Witcher", "The Witcher es una serie de televisión web de drama de fantasía polaca-estadounidense. Basada en la serie de libros de The Witcher del autor polaco Andrzej Sapkowski, la serie fue desarrollada por Lauren Schmidt Hissrich. La serie se estrenó en Netflix el 20 de diciembre de 2019.", 2, "2019", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/zrPpUlehQaBf8YX2NrVrKK8IEcA.jpg"))
+        series.add(Series(3, "The Mandalorian", "The Mandalorian es una serie de televisión web de espacio de ciencia ficción estadounidense que se estrenó en Disney+ el 12 de noviembre de 2019. Ambientada en el universo de Star Wars, la serie tiene lugar cinco años después de los eventos de Return of the Jedi y sigue a un solitario pistolero más allá de los límites de la Nueva República.", 2, "2019","" ,"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9k9Hwq8qMMs0DhB9z5AdkTzrUu1.jpg"))
+        series.add(Series(4, "The Witcher", "The Witcher es una serie de televisión web de drama de fantasía polaca-estadounidense. Basada en la serie de libros de The Witcher del autor polaco Andrzej Sapkowski, la serie fue desarrollada por Lauren Schmidt Hissrich. La serie se estrenó en Netflix el 20 de diciembre de 2019.", 2, "2019", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/zrPpUlehQaBf8YX2NrVrKK8IEcA.jpg"))
+        series.add(Series(5, "The Mandalorian", "The Mandalorian es una serie de televisión web de espacio de ciencia ficción estadounidense que se estrenó en Disney+ el 12 de noviembre de 2019. Ambientada en el universo de Star Wars, la serie tiene lugar cinco años después de los eventos de Return of the Jedi y sigue a un solitario pistolero más allá de los límites de la Nueva República.", 2, "2019","" ,"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9k9Hwq8qMMs0DhB9z5AdkTzrUu1.jpg"))
+        series.add(Series(6, "The Witcher", "The Witcher es una serie de televisión web de drama de fantasía polaca-estadounidense. Basada en la serie de libros de The Witcher del autor polaco Andrzej Sapkowski, la serie fue desarrollada por Lauren Schmidt Hissrich. La serie se estrenó en Netflix el 20 de diciembre de 2019.", 2, "2019", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/zrPpUlehQaBf8YX2NrVrKK8IEcA.jpg"))
+        series.add(Series(7, "The Mandalorian", "The Mandalorian es una serie de televisión web de espacio de ciencia ficción estadounidense que se estrenó en Disney+ el 12 de noviembre de 2019. Ambientada en el universo de Star Wars, la serie tiene lugar cinco años después de los eventos de Return of the Jedi y sigue a un solitario pistolero más allá de los límites de la Nueva República.", 2, "2019","" ,"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9k9Hwq8qMMs0DhB9z5AdkTzrUu1.jpg"))
+        series.add(Series(8, "The Witcher", "The Witcher es una serie de televisión web de drama de fantasía polaca-estadounidense. Basada en la serie de libros de The Witcher del autor polaco Andrzej Sapkowski, la serie fue desarrollada por Lauren Schmidt Hissrich. La serie se estrenó en Netflix el 20 de diciembre de 2019.", 2, "2019", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/zrPpUlehQaBf8YX2NrVrKK8IEcA.jpg"))
+
+
+
+
+        val seriesAdapter = mBinding.rcSeries.adapter as SeriesAdapter
+        seriesAdapter.submitList(series)
+
+    }
+
+    private fun saveserieid(serie: Series){
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putLong("serieId", serie.id)
+        editor.apply()
+    }
+
+    private fun savePeliid(pelicula: Peliculas){
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putLong("peliId", pelicula.id)
+        editor.apply()
+    }
+
+    private fun navigateToGeneroFragment(int: Int) {
+        if (int == 1){
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragment = PreviewFragment()
+            fragmentTransaction.replace(android.R.id.content, fragment)
+            fragmentTransaction.commit()
+        }else if (int == 2){
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragment = Preview_Serie_Fragment()
+            fragmentTransaction.replace(android.R.id.content, fragment)
+            fragmentTransaction.commit()
+        }
+
+    }
+
+
+
+
+    override fun onClickSerie(serie: Series) {
+        saveserieid(serie)
+        navigateToGeneroFragment(2)
+    }
+
+    override fun onLongClickSerie(serie: Series) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickPelicula(pelicula: Peliculas) {
+        savePeliid(pelicula)
+        navigateToGeneroFragment(1)
+    }
+
+    override fun onLongClickPelicula(pelicula: Peliculas) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickNoticias(noticias: Noticias) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onCLickGenero(genero: Genero) {
+        TODO("Not yet implemented")
+    }
+
+}
