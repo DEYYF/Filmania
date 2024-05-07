@@ -117,20 +117,19 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
     }
 
     private fun navigateToGeneroFragment(int: Int) {
-        if (int == 1){
-            val fragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        if (int == 1) {
             val fragment = PreviewFragment()
-            fragmentTransaction.replace(android.R.id.content, fragment)
-            fragmentTransaction.commit()
-        }else if (int == 2){
-            val fragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.add(android.R.id.content, fragment)
+        } else if (int == 2) {
             val fragment = Preview_Serie_Fragment()
-            fragmentTransaction.replace(android.R.id.content, fragment)
-            fragmentTransaction.commit()
+            fragmentTransaction.add(android.R.id.content, fragment)
         }
 
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
 
