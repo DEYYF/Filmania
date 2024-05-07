@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.filmania.InicioSesion.IniciarSesionActivity
 import com.example.filmania.R
+import com.example.filmania.common.Entyty.Usuario
+import com.example.filmania.common.Entyty.UsuarioNuevo
 import com.example.filmania.databinding.ActivityRegistrarseBinding
 
 class RegistrarseActivity : AppCompatActivity() {
@@ -80,9 +82,18 @@ class RegistrarseActivity : AppCompatActivity() {
         val Password2 = mBinding.etPassword2.toString()
         val pais = mBinding.etPais.toString()
         val correo = mBinding.etemail.toString()
-        val genero = if (mBinding.cbHombre.isChecked) "Hombre" else "Mujer"
+        val genero = if (mBinding.cbHombre.isChecked){
+            "Hombre"
+        } else if (mBinding.cbMujer.isChecked){
+            "Mujer"
+        } else {
+            "Otro"
+        }
 
         ComprobarCampos(Username, Password, Password2, pais, correo, genero)
+        RegisterUser(Username, Password, pais, correo, genero)
+
+
 
 
 
@@ -100,11 +111,21 @@ class RegistrarseActivity : AppCompatActivity() {
             if(Password == Password2)
             {
                 password_correcto = Password
+                Toast.makeText(this, "Contraseñas correctas", Toast.LENGTH_SHORT).show()
             }
             else
             {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun RegisterUser(Username: String, Password: String, pais: String, correo: String, genero: String)
+    {
+        // Aquí se debería de hacer la conexión a la base de datos para registrar al usuario
+        // Si la conexión es exitosa, llamar a RegisterSuccesfull()
+        // Si la conexión falla, llamar a RegisterBad()
+
+        val Username = UsuarioNuevo(Username, password_correcto, correo, genero, pais, mBinding.etImg.toString())
     }
 }
