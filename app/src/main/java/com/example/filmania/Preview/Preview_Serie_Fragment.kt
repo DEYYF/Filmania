@@ -40,20 +40,13 @@ class Preview_Serie_Fragment : Fragment(), OnClickListener {
 
 
     private fun navigateToGeneroFragment() {
-        val ticketsFragment = TicketsFragment()
+        navigateBack()
+    }
 
-
+    // Function to navigate back to the previous fragment
+    private fun navigateBack() {
         val fragmentManager = requireActivity().supportFragmentManager
-
-
-        val transaction = fragmentManager.beginTransaction()
-
-
-        transaction.replace(android.R.id.content, ticketsFragment)
-        transaction.addToBackStack(null)
-
-        // Commit de la transacción
-        transaction.commit()
+        fragmentManager.popBackStack()
     }
 
 
