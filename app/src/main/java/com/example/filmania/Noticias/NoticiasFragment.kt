@@ -2,6 +2,7 @@ package com.example.filmania.Noticias
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,7 @@ class NoticiasFragment : Fragment(), OnClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentNoticiasBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -41,20 +42,15 @@ class NoticiasFragment : Fragment(), OnClickListener {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = noticiasAdapter
         }
+        cargarTodas()
 
         mBinding.chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            group.findViewById<Chip>(checkedId)?.let { chip ->
-                chip.isChecked = true
-                chip.chipBackgroundColor = resources.getColorStateList(R.color.grey)
-                chip.setTextColor(resources.getColor(R.color.white))
-                when (checkedId) {
-                    R.id.Recomendadas -> {
-                        cargarRecomendados()
-                    }
-                    R.id.Todas -> {
-                        cargarTodas()
-                    }
-                }
+            val chip = group.findViewById<Chip>(checkedId)
+            Log.d("NoticiasFragment", "Chip seleccionado: ${chip.text}")
+            if (chip.text == "Todas") {
+                cargarTodas()
+            } else {
+                cargarRecomendados()
             }
         }
     }
@@ -68,7 +64,6 @@ class NoticiasFragment : Fragment(), OnClickListener {
                 generosSeleccionados.any { it.id == genero.id }
             }
         }
-
         noticiasAdapter.submitList(recomendadas)
     }
 

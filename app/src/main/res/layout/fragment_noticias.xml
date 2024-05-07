@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Noticias.NoticiasFragment">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,37 +14,25 @@
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:singleSelection="true"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/common_padding_min"
+            app:checkedChip="@id/Recomendadas"
             app:layout_constraintStart_toStartOf="@id/rcNoticias"
-            android:layout_margin="@dimen/common_padding_min">
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Recomendadas"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/para_ti"
-                android:textColor="@color/white"
-                app:chipBackgroundColor="@color/grey"
-                app:chipCornerRadius="12dp"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="2dp"
-                app:chipIconTint="@color/white"/>
+                android:text="@string/para_ti" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/Todas"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/todas"
-                android:textColor="@color/black"
-                app:chipBackgroundColor="@color/white"
-                app:chipCornerRadius="12dp"
-                app:chipStrokeColor="@color/black"
-                app:chipStrokeWidth="2dp"
-                app:chipIconTint="@color/white"
-                app:closeIconEnabled="false"
-                app:closeIconTint="@color/white"/>
-
+                android:text="@string/todas" />
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -52,16 +41,15 @@
             android:id="@+id/rcNoticias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/chipGroup"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:paddingBottom="@dimen/common_padding_default"
             android:scrollbars="horizontal"
-            tools:listitem="@layout/item_noticia"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup"
+            tools:listitem="@layout/item_noticia" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
 </FrameLayout>
