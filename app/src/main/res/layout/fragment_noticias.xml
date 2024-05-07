@@ -41,12 +41,12 @@
             android:id="@+id/rcNoticias"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/common_padding_default"
-            android:scrollbars="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/common_padding_min"
+            tools:listitem="@layout/item_noticia"
             app:layout_constraintTop_toBottomOf="@id/chipGroup"
-            tools:listitem="@layout/item_noticia" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingBottom="@dimen/common_padding_default"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

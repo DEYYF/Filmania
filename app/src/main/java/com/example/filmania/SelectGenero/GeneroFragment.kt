@@ -78,7 +78,7 @@ class GeneroFragment : Fragment(), OnClickListener {
     private fun saveList(context: Context, list: MutableList<Genero>) {
         val gson = Gson()
         val json = gson.toJson(list)
-        val editor = context.getSharedPreferences("Lista_user", Context.MODE_PRIVATE).edit()
+        val editor = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).edit()
         editor.putString("my_list", json)
         editor.apply()
     }
@@ -92,7 +92,8 @@ class GeneroFragment : Fragment(), OnClickListener {
 
 
 
-    override fun onClickSerie(serie: Series) {
+
+    override  fun onClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 

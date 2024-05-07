@@ -3,6 +3,7 @@ package com.example.filmania.InicioSesion
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.filmania.MainActivity
 import com.example.filmania.SelectGenero.GeneroFragment
 import com.example.filmania.common.Entyty.Usuario
@@ -38,6 +39,7 @@ class IniciarSesionActivity : AppCompatActivity() {
 
             if (user != null) {
                 saveUserId(user)
+                Log.e("Usuario", user.id.toString())
                 if (getIsFirstTime(user.id)) {
                     saveIsFirstTime(false, user.id)
                     navigateToGeneroFragment()
@@ -66,19 +68,19 @@ class IniciarSesionActivity : AppCompatActivity() {
 
 
     private fun saveIsFirstTime(isFirstTime: Boolean, userId: Int) {
-        val sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putBoolean("isFirstTime_$userId", isFirstTime)
         editor.apply()
     }
 
     private fun getIsFirstTime(userId: Int): Boolean {
-        val sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         return sharedPreferences.getBoolean("isFirstTime_$userId", true)
     }
 
     private fun saveUserId(user: Usuario ) {
-        val sharedPreferences = getSharedPreferences("MyPreferences", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putInt("userId", user.id)
         editor.apply()

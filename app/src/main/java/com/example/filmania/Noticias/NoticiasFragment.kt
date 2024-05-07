@@ -6,14 +6,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmania.DetallesNoticia.adapter.DetalleFragment
 import com.example.filmania.Noticias.adapter.NoticiasAdapter
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
+import com.example.filmania.common.Entyty.Usuario
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentNoticiasBinding
 import com.google.android.material.chip.Chip
@@ -39,7 +42,7 @@ class NoticiasFragment : Fragment(), OnClickListener {
         noticiasAdapter = NoticiasAdapter(this)
 
         mBinding.rcNoticias.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = noticiasAdapter
         }
         cargarTodas()
@@ -60,8 +63,10 @@ class NoticiasFragment : Fragment(), OnClickListener {
         val generosSeleccionados = getGenerosFromSharedPreferences()
 
         val recomendadas = allNoticias.filter { noticia ->
-            noticia.genero.any { genero ->
-                generosSeleccionados.any { it.id == genero.id }
+            noticia.genero.any { generoNoticia ->
+                generosSeleccionados.any { generoSeleccionado ->
+                    generoSeleccionado.id == generoNoticia.id
+                }
             }
         }
         noticiasAdapter.submitList(recomendadas)
@@ -77,10 +82,10 @@ class NoticiasFragment : Fragment(), OnClickListener {
 
         allNoticias.add(Noticias(1, "Noticia 1", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
         allNoticias.add(Noticias(2, "Noticia 2", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(3, "Noticia 1", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(4, "Noticia 2", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(5, "Noticia 1", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(6, "Noticia 2", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
+        allNoticias.add(Noticias(3, "Noticia 3", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
+        allNoticias.add(Noticias(4, "Noticia 4", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
+        allNoticias.add(Noticias(5, "Noticia 5", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
+        allNoticias.add(Noticias(6, "Noticia 6", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
 
         return allNoticias
     }
@@ -99,6 +104,13 @@ class NoticiasFragment : Fragment(), OnClickListener {
         val json = sharedPreferences.getString("generos", "")
         val type = object : TypeToken<MutableList<Genero>>() {}.type
         return gson.fromJson(json, type) ?: mutableListOf()
+    }
+
+    private fun saveNoticiasId(noticias: Noticias) {
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putLong("noticias_id", noticias.id)
+        editor.apply()
     }
 
 
@@ -120,7 +132,13 @@ class NoticiasFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickNoticias(noticias: Noticias) {
-        TODO("Not yet implemented")
+        saveNoticiasId(noticias)
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = DetalleFragment()
+        fragmentTransaction.replace(android.R.id.content, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
     override fun onCLickGenero(genero: Genero) {
