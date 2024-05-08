@@ -77,7 +77,7 @@ class RegistrarseActivity : AppCompatActivity() {
         Toast.makeText(this, R.string.FailedString, Toast.LENGTH_SHORT).show()
     }
 
-    private suspend fun getCountries() {
+    suspend fun  getCountries() {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://countriesnow.space/api/v0.1/")
             .addConverterFactory(GsonConverterFactory.create())
