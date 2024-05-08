@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmania.DetallesNoticia.adapter.DetalleAdapter.DetalleAdapter
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Noticias
@@ -27,9 +29,39 @@ class DetalleFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        SetupRecyclerView()
+
+        mBinding.btnBack.setOnClickListener {
+            navigateToGeneroFragment()
+        }
     }
 
-    
+    private fun SetupRecyclerView(){
+
+        val detalleAdapter = DetalleAdapter()
+        val detalleLayoutManager = LinearLayoutManager(requireContext())
+
+        detalleLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+
+        mBinding.rcDetalle.layoutManager = detalleLayoutManager
+        mBinding.rcDetalle.adapter = detalleAdapter
+    }
+
+    private fun navigateToGeneroFragment() {
+        navigateBack()
+    }
+
+
+    private fun navigateBack() {
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.popBackStack()
+    }
+
+
+
+
+
 
     override fun onClickSerie(serie: Series) {
         TODO("Not yet implemented")
