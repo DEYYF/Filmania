@@ -79,7 +79,7 @@ class GeneroFragment : Fragment(), OnClickListener {
         val gson = Gson()
         val json = gson.toJson(list)
         val editor = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).edit()
-        editor.putString("my_list", json)
+        editor.putString("generos", json)
         editor.apply()
     }
 
