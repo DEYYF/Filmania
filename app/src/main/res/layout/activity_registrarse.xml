@@ -89,25 +89,16 @@
                     android:background="@drawable/border"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
+            <Spinner
                 android:id="@+id/tiPais"
                 android:layout_width="@dimen/main_textfield_width"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/common_padding_default"
-                android:hint="@string/hint_pais"
-                android:textColorHint="@color/white"
+                android:layout_marginTop="@dimen/common_padding_min"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:passwordToggleTint="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/tilPassword2"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPais"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:background="@drawable/border"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                tools:listitem="@layout/spinner_item"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tiemail"

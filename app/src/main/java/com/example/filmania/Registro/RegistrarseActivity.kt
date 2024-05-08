@@ -5,20 +5,35 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.filmania.InicioSesion.IniciarSesionActivity
 import com.example.filmania.R
+import com.example.filmania.Registro.Adapter.CountrySpinnerAdapter
+import com.example.filmania.Retrofit.Countrys.CountryService
+import com.example.filmania.common.Entyty.Country
 import com.example.filmania.common.Entyty.Usuario
 import com.example.filmania.common.Entyty.UsuarioNuevo
 import com.example.filmania.databinding.ActivityRegistrarseBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class RegistrarseActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityRegistrarseBinding
 
     private lateinit var password_correcto: String
+
+    private lateinit var pais: MutableList<Country>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +56,8 @@ class RegistrarseActivity : AppCompatActivity() {
             }
         })
 
+        lifecycleScope.launch { getCountries() }
+
 
         mBinding.btRegistrarse.setOnClickListener { AddNewUser() }
 
@@ -58,6 +75,47 @@ class RegistrarseActivity : AppCompatActivity() {
     private fun RegisterBad()
     {
         Toast.makeText(this, R.string.FailedString, Toast.LENGTH_SHORT).show()
+    }
+
+    private suspend fun getCountries() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://restcountries.com/v3.1/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+        val countryService = retrofit.create(CountryService::class.java)
+
+        lifecycleScope.launch {
+            try {
+                val response = countryService.getCountries()
+
+                pais = response.body()!!
+
+                Log.e("Paises", pais.toString())
+
+                pais.add(0, Country("Países", ""))
+
+                withContext(Dispatchers.Main) {
+                    if(pais != null){
+                        val adapter = CountrySpinnerAdapter(this@RegistrarseActivity, pais)
+                        mBinding.tiPais.adapter = adapter
+
+                        mBinding.tiPais.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                                val selectedCountry = parent.getItemAtPosition(position) as Country
+                                // Aquí puedes hacer algo con el país seleccionado
+                            }
+
+                            override fun onNothingSelected(parent: AdapterView<*>) {
+                                // Aquí puedes hacer algo cuando no se selecciona ningún país
+                            }
+                        }
+                    }
+                }
+            }catch (e: Exception){
+                Log.e("Error", e.message.toString())
+            }
+        }
     }
 
     private fun ChangeActivityLogin()
@@ -80,7 +138,8 @@ class RegistrarseActivity : AppCompatActivity() {
         val Username = mBinding.etUsername.toString()
         val Password = mBinding.etPassword.toString()
         val Password2 = mBinding.etPassword2.toString()
-        val pais = mBinding.etPais.toString()
+        val selectedpais = mBinding.tiPais.selectedItem as Country
+        val pais = selectedpais.name
         val correo = mBinding.etemail.toString()
         val genero = if (mBinding.cbHombre.isChecked){
             "Hombre"
@@ -128,4 +187,6 @@ class RegistrarseActivity : AppCompatActivity() {
 
         val Username = UsuarioNuevo(Username, password_correcto, correo, genero, pais, mBinding.etImg.toString())
     }
+
+
 }
