@@ -8,8 +8,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.caverock.androidsvg.SVG
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Country
 import java.net.URL

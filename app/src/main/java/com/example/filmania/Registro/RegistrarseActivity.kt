@@ -33,7 +33,7 @@ class RegistrarseActivity : AppCompatActivity() {
 
     private lateinit var password_correcto: String
 
-    private lateinit var pais: MutableList<Country>
+    private var pais: MutableList<Country> = mutableListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +79,7 @@ class RegistrarseActivity : AppCompatActivity() {
 
     private suspend fun getCountries() {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://restcountries.com/v3.1/")
+            .baseUrl("https://countriesnow.space/api/v0.1/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -87,28 +87,24 @@ class RegistrarseActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                val response = countryService.getCountries()
+                val response = countryService.getData()
+                pais = response.body()!!.data
+                pais.add(0, Country("Países", "", "", ""))
 
-                pais = response.body()!!
-
-                Log.e("Paises", pais.toString())
-
-                pais.add(0, Country("Países", ""))
 
                 withContext(Dispatchers.Main) {
-                    if(pais != null){
-                        val adapter = CountrySpinnerAdapter(this@RegistrarseActivity, pais)
-                        mBinding.tiPais.adapter = adapter
+                    Log.e("Paises", pais.toString())
+                    val adapter = CountrySpinnerAdapter(this@RegistrarseActivity, pais)
+                    mBinding.tiPais.adapter = adapter
 
-                        mBinding.tiPais.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                                val selectedCountry = parent.getItemAtPosition(position) as Country
-                                // Aquí puedes hacer algo con el país seleccionado
-                            }
+                    mBinding.tiPais.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                            val selectedCountry = parent.getItemAtPosition(position) as Country
+                            // Aquí puedes hacer algo con el país seleccionado
+                        }
 
-                            override fun onNothingSelected(parent: AdapterView<*>) {
-                                // Aquí puedes hacer algo cuando no se selecciona ningún país
-                            }
+                        override fun onNothingSelected(parent: AdapterView<*>) {
+                            // Aquí puedes hacer algo cuando no se selecciona ningún país
                         }
                     }
                 }
