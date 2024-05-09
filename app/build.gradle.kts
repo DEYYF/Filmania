@@ -79,7 +79,6 @@ dependencies {
     // CircleImageView
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
-    implementation("com.caverock:androidsvg:$caverrock_version")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

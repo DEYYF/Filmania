@@ -14,7 +14,6 @@ import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
-import com.caverock.androidsvg.SVG
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Country
 import java.net.URL
@@ -36,7 +35,6 @@ class CountrySpinnerAdapter(context: Context, countries: List<Country>) :
         val country = getItem(position)
         val view = convertView ?: LayoutInflater.from(context).inflate(R.layout.spinner_item, parent, false)
 
-        val flagImageView = view.findViewById<ImageView>(R.id.flagImageView)
         val countryNameTextView = view.findViewById<TextView>(R.id.countryNameTextView)
 
         countryNameTextView.text = country?.name

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -56,7 +57,23 @@ class RegistrarseActivity : AppCompatActivity() {
             }
         })
 
+
+
         lifecycleScope.launch { getCountries() }
+
+        mBinding.tiPais.setOnKeyListener { v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN) {
+                val pressedKey = event.unicodeChar.toChar().lowercaseChar()
+                for (i in 0 until mBinding.tiPais.adapter.count) {
+                    val country = mBinding.tiPais.adapter.getItem(i) as Country
+                    if (country.name.lowercase().startsWith(pressedKey)) {
+                        mBinding.tiPais.setSelection(i)
+                        break
+                    }
+                }
+            }
+            true
+        }
 
 
         mBinding.btRegistrarse.setOnClickListener { AddNewUser() }
@@ -93,9 +110,15 @@ class RegistrarseActivity : AppCompatActivity() {
 
 
                 withContext(Dispatchers.Main) {
-                    Log.e("Paises", pais.toString())
+
+
                     val adapter = CountrySpinnerAdapter(this@RegistrarseActivity, pais)
+
                     mBinding.tiPais.adapter = adapter
+
+                    mBinding.tiPais.post {
+                        mBinding.tiPais.dropDownVerticalOffset = mBinding.tiPais.height
+                    }
 
                     mBinding.tiPais.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
@@ -144,6 +167,7 @@ class RegistrarseActivity : AppCompatActivity() {
         } else {
             "Otro"
         }
+
 
         ComprobarCampos(Username, Password, Password2, pais, correo, genero)
         RegisterUser(Username, Password, pais, correo, genero)

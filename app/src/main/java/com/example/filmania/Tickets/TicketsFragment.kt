@@ -39,6 +39,8 @@ class TicketsFragment : Fragment(), OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
+
+
     }
 
     private fun setupRecyclerView(){

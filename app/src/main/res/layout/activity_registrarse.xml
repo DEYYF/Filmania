@@ -89,15 +89,15 @@
                     android:background="@drawable/border"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Spinner
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/tiPais"
-                android:layout_width="@dimen/main_textfield_width"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/common_padding_default"
                 android:layout_marginTop="@dimen/common_padding_min"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tilPassword2"
                 app:layout_constraintTop_toBottomOf="@id/tilPassword2"
+                android:background="@drawable/border"
                 tools:listitem="@layout/spinner_item"/>
 
             <com.google.android.material.textfield.TextInputLayout

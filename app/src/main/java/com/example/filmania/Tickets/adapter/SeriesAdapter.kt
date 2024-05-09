@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -51,6 +52,8 @@ class SeriesAdapter(private var listener: OnClickListener) : ListAdapter<Series,
             with(mBinding)
             {
                 tvTitulo.text = serie.titulo
+                val animation = AnimationUtils.loadAnimation(context, R.anim.series_pelis_text_animation)
+                tvTitulo.startAnimation(animation)
                 Glide.with(context)
                     .load(serie.imagen)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)

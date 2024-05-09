@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,22 +7,26 @@
     tools:context=".Buscador.BuscadorFragment"
     android:background="@color/Darkblue">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <com.google.android.material.search.SearchBar
-            android:id="@+id/searchBar"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchview"
+        android:layout_width="@dimen/searchview_width_350dp"
+        android:layout_height="wrap_content"
+        app:queryHint="@string/hint_buscador"
+        app:iconifiedByDefault="false"
+        android:background="@drawable/searchview_rounded"
+        app:queryBackground="@null"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/common_padding_default"/>
+
+
+
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/hint_buscador"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/searchBar">
+            app:layout_constraintTop_toBottomOf="@id/searchview">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -34,7 +38,7 @@
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/item_buscador_serie"
                     android:scrollbars="vertical"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="@dimen/margin_top_35"
                     app:layout_constraintTop_toTopOf="parent"/>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -44,6 +48,7 @@
                     tools:listitem="@layout/item_buscador_serie"
                     android:scrollbars="vertical"
                     app:layout_constraintTop_toBottomOf="@id/rc_buscador_serie"/>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -57,5 +62,3 @@
 
 
 
-
-</FrameLayout>
