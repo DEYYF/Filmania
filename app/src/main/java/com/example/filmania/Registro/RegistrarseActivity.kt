@@ -1,6 +1,7 @@
 package com.example.filmania.Registro
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -9,7 +10,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
@@ -20,7 +21,7 @@ import com.example.filmania.Registro.Adapter.CountrySpinnerAdapter
 import com.example.filmania.Retrofit.Countrys.CountryService
 import com.example.filmania.common.Entyty.Country
 import com.example.filmania.common.Entyty.Usuario
-import com.example.filmania.common.Entyty.UsuarioNuevo
+import com.example.filmania.common.Entyty.Usuario_nuevo
 import com.example.filmania.databinding.ActivityRegistrarseBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,6 +43,10 @@ class RegistrarseActivity : AppCompatActivity() {
         mBinding = ActivityRegistrarseBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+        Glide.with(this)
+            .load("https://s3.amazonaws.com/qreatech.com/Logo+Filmania+(1).jpg")
+            .into(mBinding.ivBackground)
+
         mBinding.etImg.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val imgURL = s.toString()
@@ -61,18 +66,18 @@ class RegistrarseActivity : AppCompatActivity() {
 
         lifecycleScope.launch { getCountries() }
 
-        mBinding.tiPais.setOnKeyListener { v, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN) {
-                val pressedKey = event.unicodeChar.toChar().lowercaseChar()
-                for (i in 0 until mBinding.tiPais.adapter.count) {
-                    val country = mBinding.tiPais.adapter.getItem(i) as Country
-                    if (country.name.lowercase().startsWith(pressedKey)) {
-                        mBinding.tiPais.setSelection(i)
-                        break
-                    }
-                }
+        mBinding.tiPais.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedCountry = parent.getItemAtPosition(position) as Country
+                // Aquí puedes hacer algo con el país seleccionado
+
+                // Cambia el color del texto a blanco cuando se selecciona un país
+                (parent.getChildAt(0) as TextView).setTextColor(Color.WHITE)
             }
-            true
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // Aquí puedes hacer algo cuando no se selecciona ningún país
+            }
         }
 
 
@@ -160,13 +165,7 @@ class RegistrarseActivity : AppCompatActivity() {
         val selectedpais = mBinding.tiPais.selectedItem as Country
         val pais = selectedpais.name
         val correo = mBinding.etemail.toString()
-        val genero = if (mBinding.cbHombre.isChecked){
-            "Hombre"
-        } else if (mBinding.cbMujer.isChecked){
-            "Mujer"
-        } else {
-            "Otro"
-        }
+        val genero = mBinding.etgenero.toString()
 
 
         ComprobarCampos(Username, Password, Password2, pais, correo, genero)
@@ -205,7 +204,7 @@ class RegistrarseActivity : AppCompatActivity() {
         // Si la conexión es exitosa, llamar a RegisterSuccesfull()
         // Si la conexión falla, llamar a RegisterBad()
 
-        val Username = UsuarioNuevo(Username, password_correcto, correo, genero, pais, mBinding.etImg.toString())
+        val Username = Usuario_nuevo(Username, password_correcto, correo, genero, pais, mBinding.etImg.toString())
     }
 
 

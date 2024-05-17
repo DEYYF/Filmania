@@ -1,4 +1,4 @@
-package com.example.filmania.Noticias.adapter
+package com.example.filmania.Noticia.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -22,7 +22,7 @@ class NoticiasAdapter(private var listener: OnClickListener): ListAdapter<Notici
 
         fun setListener(noticias: Noticias){
             with(mBinding){
-                cvNoticia.setOnClickListener{ listener.onClickNoticias(noticias)}
+                cvNoticia.setOnClickListener{ listener.onClickNoticia(noticias)}
             }
         }
     }
@@ -44,7 +44,7 @@ class NoticiasAdapter(private var listener: OnClickListener): ListAdapter<Notici
             with(mBinding){
                 tvTituloNoticia.text = noticia.titulo
                 Glide.with(context)
-                    .load(noticia.img)
+                    .load(noticia.imagen)
                     .centerCrop()
                     .into(imgNoticia)
             }

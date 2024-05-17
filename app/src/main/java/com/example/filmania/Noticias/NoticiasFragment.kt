@@ -1,4 +1,4 @@
-package com.example.filmania.Noticias
+package com.example.filmania.Noticia
 
 import android.content.Context
 import android.os.Bundle
@@ -10,13 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.DetallesNoticia.adapter.DetalleFragment
-import com.example.filmania.Noticias.adapter.NoticiasAdapter
-import com.example.filmania.R
+import com.example.filmania.Noticia.adapter.NoticiasAdapter
+import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
+import com.example.filmania.common.Entyty.Libreria
 import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
-import com.example.filmania.common.Entyty.Usuario
+import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentNoticiasBinding
 import com.google.android.material.chip.Chip
@@ -60,16 +61,14 @@ class NoticiasFragment : Fragment(), OnClickListener {
 
     private fun cargarRecomendados() {
         val allNoticias = getAllNoticias()
-        val generosSeleccionados = getGenerosFromSharedPreferences()
+        val genero1 = getGenero1()
+        val genero2 = getGenero2()
+        val genero3 = getGenero3()
 
-        val recomendadas = allNoticias.filter { noticia ->
-            noticia.genero.any { generoNoticia ->
-                generosSeleccionados.any { generoSeleccionado ->
-                    generoSeleccionado.id == generoNoticia.id
-                }
-            }
-        }
-        noticiasAdapter.submitList(recomendadas)
+
+
+
+        //noticiasAdapter.submitList()
     }
 
     private fun cargarTodas() {
@@ -80,31 +79,35 @@ class NoticiasFragment : Fragment(), OnClickListener {
     private fun getAllNoticias(): MutableList<Noticias> {
         val allNoticias = mutableListOf<Noticias>()
 
-        allNoticias.add(Noticias(1, "Noticia 1", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(2, "Noticia 2", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(3, "Noticia 3", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(4, "Noticia 4", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(5, "Noticia 5", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-        allNoticias.add(Noticias(6, "Noticia 6", "df","https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg", generos()))
-
         return allNoticias
     }
 
-    private fun generos(): MutableList<Genero> {
-        val genero = mutableListOf<Genero>()
-        genero.add(Genero(1, "Accion", "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"))
-        genero.add(Genero(2, "Aventura", "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"))
 
-        return genero
+    private fun getGenero1(): Long {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val genero1 = sharedPreferences.getLong("id_g", 0)
+
+        return genero1
     }
 
-    private fun getGenerosFromSharedPreferences(): MutableList<Genero> {
-        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
-        val gson = Gson()
-        val json = sharedPreferences.getString("generos", "")
-        val type = object : TypeToken<MutableList<Genero>>() {}.type
-        return gson.fromJson(json, type) ?: mutableListOf()
+    private fun getGenero2(): Long {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val genero2 = sharedPreferences.getLong("id_g2", 0)
+
+        return genero2
     }
+
+    private fun getGenero3(): Long {
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val genero3 = sharedPreferences.getLong("id_g3", 0)
+
+        return genero3
+    }
+
+
 
     private fun saveNoticiasId(noticias: Noticias) {
         val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
@@ -113,13 +116,7 @@ class NoticiasFragment : Fragment(), OnClickListener {
         editor.apply()
     }
 
-
-
-    override fun onClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onLongClickSerie(serie: Series) {
+    override fun onCLickGenero(genero: Genero) {
         TODO("Not yet implemented")
     }
 
@@ -131,7 +128,16 @@ class NoticiasFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onClickNoticias(noticias: Noticias) {
+    override fun onClickSerie(serie: Series) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onLongClickSerie(serie: Series) {
+        TODO("Not yet implemented")
+    }
+
+
+    override fun onClickNoticia(noticias: Noticias) {
         saveNoticiasId(noticias)
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -141,7 +147,17 @@ class NoticiasFragment : Fragment(), OnClickListener {
         fragmentTransaction.commit()
     }
 
-    override fun onCLickGenero(genero: Genero) {
+    override fun onClickLibreria(Libreria: Libreria) {
         TODO("Not yet implemented")
     }
+
+    override fun onClickBusqueda(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
+        TODO("Not yet implemented")
+    }
+
+
 }

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.filmania.R
-import com.example.filmania.Tickets.adapter.PeliculasAdapter
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.ItemPreviewBinding
@@ -48,8 +47,8 @@ class PreviewAdapter(private var listener: OnClickListener): ListAdapter<Pelicul
             with(mBinding){
                 tvNombre.text = pelicula.titulo
                 tvDescription.text = pelicula.descripcion
-                tvYear.text = pelicula.year
-                tvDuracion.text = pelicula.duracion
+                tvYear.text = pelicula.ano.toString()
+                tvDuracion.text = pelicula.duracion.toString() + " min"
                 Glide.with(context)
                     .load(pelicula.imagen)
                     .centerCrop()

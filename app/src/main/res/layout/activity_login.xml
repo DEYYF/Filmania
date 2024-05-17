@@ -5,7 +5,8 @@
     android:id="@+id/container_log"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PantallaPrincipal.LogActivity">
+    tools:context=".PantallaPrincipal.LogActivity"
+    android:background="#36454F">
 
     <ImageView
         android:id="@+id/ivLogo"
@@ -17,29 +18,16 @@
         />
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btIniciarSesionGoogle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Iniciar Sesión con Google"
-        app:icon="@drawable/ic_google_icon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="80dp"
-        android:backgroundTint="@color/yellow"
-        android:textColor="@color/black"
-        app:iconTint="@color/black"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btRegistrarse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Registrarse"
-        app:layout_constraintBottom_toTopOf="@id/btIniciarSesionGoogle"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/common_padding_default"
         android:backgroundTint="@color/yellow"
         android:textColor="@color/black"/>
 

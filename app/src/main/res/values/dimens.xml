@@ -12,4 +12,5 @@
     <dimen name="height_noticias_200">200dp</dimen>
     <dimen name="margin_top_35">35dp</dimen>
     <dimen name="searchview_width_350dp">350dp</dimen>
+    <dimen name="pais_dimen">50dp</dimen>
 </resources>

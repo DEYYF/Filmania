@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Noticias
-import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.ItemNoticiasViewBinding
 
 class DetalleAdapter(): ListAdapter<Noticias, RecyclerView.ViewHolder>(NoticiasDiffUtil()){
@@ -37,7 +36,7 @@ class DetalleAdapter(): ListAdapter<Noticias, RecyclerView.ViewHolder>(NoticiasD
                 tvTitulo.text = noticia.titulo
                 tvDesc.text = noticia.descripcion
                 Glide.with(context)
-                    .load(noticia.img)
+                    .load(noticia.imagen)
                     .centerCrop()
                     .into(ivNoticia)
             }

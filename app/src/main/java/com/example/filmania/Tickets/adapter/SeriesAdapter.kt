@@ -28,9 +28,6 @@ class SeriesAdapter(private var listener: OnClickListener) : ListAdapter<Series,
         {
             with(mBinding){
                 cvPeliSerie.setOnClickListener { listener.onClickSerie(serie) }
-                cvPeliSerie.setOnLongClickListener {
-                    listener.onLongClickSerie(serie)
-                    true }
             }
         }
 
@@ -46,16 +43,17 @@ class SeriesAdapter(private var listener: OnClickListener) : ListAdapter<Series,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int)
     {
         val serie = getItem(position)
+
         with(holder as ViewHolder)
         {
             setListener(serie)
             with(mBinding)
             {
-                tvTitulo.text = serie.titulo
+                tvTitulo.text = serie.Titulo
                 val animation = AnimationUtils.loadAnimation(context, R.anim.series_pelis_text_animation)
                 tvTitulo.startAnimation(animation)
                 Glide.with(context)
-                    .load(serie.imagen)
+                    .load(serie.Imagen)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
                     .into(imgPeliSerie)
@@ -69,7 +67,7 @@ class SeriesAdapter(private var listener: OnClickListener) : ListAdapter<Series,
     {
         override fun areItemsTheSame(oldItem: Series, newItem: Series): Boolean
         {
-            return oldItem.id == newItem.id
+            return oldItem.Id == newItem.Id
         }
 
         override fun areContentsTheSame(oldItem: Series, newItem: Series): Boolean

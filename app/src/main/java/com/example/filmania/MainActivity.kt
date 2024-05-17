@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.example.filmania.Buscador.BuscadorFragment
 import com.example.filmania.Libreria.LibreriaFragment
-import com.example.filmania.Noticias.NoticiasFragment
+import com.example.filmania.Noticia.NoticiasFragment
 import com.example.filmania.Peliculasyseries.PeliculasySeriesFragment
 import com.example.filmania.Tickets.TicketsFragment
 import com.example.filmania.databinding.ActivityMain2Binding

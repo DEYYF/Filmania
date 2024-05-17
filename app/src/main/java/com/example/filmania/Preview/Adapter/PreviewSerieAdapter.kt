@@ -40,12 +40,12 @@ class PreviewSerieAdapter(private var listener: OnClickListener): ListAdapter<Se
         with(holder as ViewHolder){
             setListener(serie)
             with(mBinding){
-                tvNombre.text = serie.titulo
-                tvDescription.text = serie.descripcion
-                tvYear.text = serie.year
-                tvDuracion.text = serie.temporadas.toString()
+                tvNombre.text = serie.Titulo
+                tvDescription.text = serie.Descripcion
+                tvYear.text = serie.Ano.toString()
+                tvDuracion.text = serie.Temporadas.toString() + " Temporadas"
                 Glide.with(context)
-                    .load(serie.imagen)
+                    .load(serie.Imagen)
                     .centerCrop()
                     .into(ivPreview)
 
@@ -55,7 +55,7 @@ class PreviewSerieAdapter(private var listener: OnClickListener): ListAdapter<Se
 
     class SerieDiffCallback: DiffUtil.ItemCallback<Series>() {
         override fun areItemsTheSame(oldItem: Series, newItem: Series): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.Id == newItem.Id
         }
 
         override fun areContentsTheSame(oldItem: Series, newItem: Series): Boolean {

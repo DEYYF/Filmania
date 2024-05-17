@@ -4,7 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InicioSesion.IniciarSesionActivity">
+    tools:context=".InicioSesion.IniciarSesionActivity"
+    android:background="#36454F">
+
+    <ImageView
+        android:id="@+id/ivBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvInicioSesion"
@@ -15,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:cardCornerRadius="@dimen/cornerRadius_card"
         app:cardElevation="@dimen/card_elevation_login"
-        android:backgroundTint="@color/Darkblue"
+        android:backgroundTint="#36454F"
         android:layout_marginBottom="@dimen/common_padding_default">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,14 +40,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/tilPassword"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/black"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@drawable/border"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/common_padding_default"
                 android:hint="@string/hint_password"
-                android:textColorHint="@color/white"
+                android:textColorHint="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:passwordToggleEnabled = "true"
@@ -62,7 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:background="@drawable/border"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +104,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/Iniciar_sesion"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:backgroundTint="@color/yellow"
                 app:layout_constraintTop_toBottomOf="@id/btRegistro"
                 android:layout_marginTop="@dimen/common_padding_default"

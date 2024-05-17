@@ -1,17 +1,17 @@
 package com.example.filmania.Preview
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.filmania.R
-import com.example.filmania.Tickets.TicketsFragment
+import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
+import com.example.filmania.common.Entyty.Libreria
 import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
+import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentPreviewBinding
 
@@ -51,18 +51,7 @@ class PreviewFragment : Fragment(), OnClickListener {
         fragmentManager.popBackStack()
     }
 
-
-
-
-
-
-
-
-    override fun onClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onLongClickSerie(serie: Series) {
+    override fun onCLickGenero(genero: Genero) {
         TODO("Not yet implemented")
     }
 
@@ -74,11 +63,27 @@ class PreviewFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onClickNoticias(noticias: Noticias) {
+    override fun onClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 
-    override fun onCLickGenero(genero: Genero) {
+    override fun onLongClickSerie(serie: Series) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickNoticia(noticias: Noticias) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickLibreria(Libreria: Libreria) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusqueda(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
         TODO("Not yet implemented")
     }
 

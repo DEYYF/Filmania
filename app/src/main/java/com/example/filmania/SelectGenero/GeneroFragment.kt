@@ -12,14 +12,16 @@ import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmania.MainActivity
 import com.example.filmania.SelectGenero.adapter.GeneroAdapter
+import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
+import com.example.filmania.common.Entyty.Libreria
 import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
+import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentGeneroBinding
 import com.google.gson.Gson
-import kotlin.math.log
 
 class GeneroFragment : Fragment(), OnClickListener {
 
@@ -42,11 +44,7 @@ class GeneroFragment : Fragment(), OnClickListener {
 
         setupRecyclerView()
 
-        mBinding.btnGenero.setOnClickListener {
-            saveList(requireContext(), generosSelect)
-            ChangeActivityMain()
-            Log.e("Generos", generosSelect.toString())
-        }
+
 
     }
 
@@ -76,10 +74,10 @@ class GeneroFragment : Fragment(), OnClickListener {
     }
 
     private fun saveList(context: Context, list: MutableList<Genero>) {
-        val gson = Gson()
-        val json = gson.toJson(list)
         val editor = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).edit()
-        editor.putString("generos", json)
+        editor.putLong("id_g", list[0].id)
+        editor.putLong("id_g2", list[1].id)
+        editor.putLong("id_g3", list[2].id)
         editor.apply()
     }
 
@@ -93,12 +91,14 @@ class GeneroFragment : Fragment(), OnClickListener {
 
 
 
-    override  fun onClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onLongClickSerie(serie: Series) {
-        TODO("Not yet implemented")
+
+    override fun onCLickGenero(genero: Genero) {
+        generosSelect.add(genero)
+        if (generosSelect.size == 3){
+            saveList(requireContext(), generosSelect)
+            ChangeActivityMain()
+        }
     }
 
     override fun onClickPelicula(pelicula: Peliculas) {
@@ -109,23 +109,29 @@ class GeneroFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onClickNoticias(noticias: Noticias) {
+    override fun onClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 
-    override fun onCLickGenero(genero: Genero) {
-
-        if (generosSelect.size < 3) {
-            if (generosSelect.contains(genero)) {
-                generosSelect.remove(genero)
-            } else  {
-                generosSelect.add(genero)
-            }
-        } else {
-            Toast.makeText(requireContext(), "Solo puedes seleccionar tres géneros", Toast.LENGTH_SHORT).show()
-        }
+    override fun onLongClickSerie(serie: Series) {
+        TODO("Not yet implemented")
     }
 
+    override fun onClickNoticia(noticias: Noticias) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickLibreria(Libreria: Libreria) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusqueda(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
+        TODO("Not yet implemented")
+    }
 
 
 }

@@ -1,8 +1,7 @@
 package com.example.filmania.common.Entyty
 
-data class Noticias(
+data class Libreria(
     var id: Long,
     val titulo: String,
-    val descripcion: String,
     val imagen: String
 )
