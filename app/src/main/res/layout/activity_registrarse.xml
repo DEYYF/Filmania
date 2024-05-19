@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Registro.RegistrarseActivity"
-    android:background="#36454F">
+    android:background="@color/grey_oscuro">
 
     <ImageView
         android:id="@+id/ivBackground"
@@ -25,7 +25,7 @@
         app:cardCornerRadius="@dimen/cornerRadius_card"
         app:cardElevation="@dimen/card_elevation_login"
         android:layout_margin="@dimen/common_padding_default"
-        android:backgroundTint="#36454F">
+        android:backgroundTint="@color/grey_oscuro">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

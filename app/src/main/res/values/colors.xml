@@ -9,4 +9,5 @@
     <color name="Darkblue">#146683</color>
     <color name="grey">#4D616C</color>
     <color name="grey_d">#C6C6C6</color>
+    <color name="grey_oscuro">#36454F</color>
 </resources>

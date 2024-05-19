@@ -3,7 +3,7 @@ package com.example.filmania.common.utils
 object Constantes {
 
     const val BASE_URL_COUNTRY = "https://countriesnow.space/api/v0.1/countries/flag/images"
-    const val BASE_URL = ""
+    const val BASE_URL = "http://filmania.navelsystems.es"
 
     //User
     const val Log = "/Log"

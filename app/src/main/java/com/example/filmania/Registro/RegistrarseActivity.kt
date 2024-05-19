@@ -19,15 +19,18 @@ import com.example.filmania.InicioSesion.IniciarSesionActivity
 import com.example.filmania.R
 import com.example.filmania.Registro.Adapter.CountrySpinnerAdapter
 import com.example.filmania.Retrofit.Countrys.CountryService
+import com.example.filmania.Retrofit.Usuario.UsuarioService
 import com.example.filmania.common.Entyty.Country
 import com.example.filmania.common.Entyty.Usuario
 import com.example.filmania.common.Entyty.Usuario_nuevo
+import com.example.filmania.common.utils.Constantes
 import com.example.filmania.databinding.ActivityRegistrarseBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 
 class RegistrarseActivity : AppCompatActivity() {
 
@@ -159,27 +162,23 @@ class RegistrarseActivity : AppCompatActivity() {
 
     private fun AddNewUser()
     {
-        val Username = mBinding.etUsername.toString()
-        val Password = mBinding.etPassword.toString()
-        val Password2 = mBinding.etPassword2.toString()
-        val selectedpais = mBinding.tiPais.selectedItem as Country
-        val pais = selectedpais.name
-        val correo = mBinding.etemail.toString()
-        val genero = mBinding.etgenero.toString()
+        with(mBinding) {
+            val Username = etUsername.text.toString()
+            val Password = etPassword.text.toString()
+            val Password2 = etPassword2.text.toString()
+            val pais = tiPais.selectedItem.toString()
+            val correo = etemail.text.toString()
+            val genero = etgenero.text.toString()
+            val imagen = etImg.text.toString()
 
-
-        ComprobarCampos(Username, Password, Password2, pais, correo, genero)
-        RegisterUser(Username, Password, pais, correo, genero)
-
-
-
-
+            RegisterUser(Username, Password,Password2, pais, correo, genero, imagen)
+        }
 
     }
 
 
 
-    private fun ComprobarCampos(Username: String, Password: String, Password2: String, pais: String, correo: String, genero: String) {
+    private fun ComprobarCampos(Username: String, Password: String, Password2: String, pais: String, correo: String, genero: String): Boolean {
         if(Username.isEmpty() || Password.isEmpty() || Password2.isEmpty() || pais.isEmpty() || correo.isEmpty() || genero.isEmpty())
         {
             Toast.makeText(this, "Por favor llene todos los campos", Toast.LENGTH_SHORT).show()
@@ -190,21 +189,46 @@ class RegistrarseActivity : AppCompatActivity() {
             {
                 password_correcto = Password
                 Toast.makeText(this, "Contraseñas correctas", Toast.LENGTH_SHORT).show()
+                return true
             }
             else
             {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
+                return false
             }
         }
+        return false
     }
 
-    private fun RegisterUser(Username: String, Password: String, pais: String, correo: String, genero: String)
+    private fun RegisterUser(Username: String, Password: String,Password2: String, pais: String, correo: String, genero: String, imagen: String)
     {
-        // Aquí se debería de hacer la conexión a la base de datos para registrar al usuario
-        // Si la conexión es exitosa, llamar a RegisterSuccesfull()
-        // Si la conexión falla, llamar a RegisterBad()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(Constantes.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-        val Username = Usuario_nuevo(Username, password_correcto, correo, genero, pais, mBinding.etImg.toString())
+        val userService = retrofit.create(UsuarioService::class.java)
+
+        lifecycleScope.launch {
+            try {
+                if (ComprobarCampos(Username, Password, Password2, pais, correo, genero)) {
+                    val response = userService.registerUser(Usuario_nuevo(Username, Password, correo, genero, pais, imagen))
+                    withContext(Dispatchers.Main) {
+                        if (response.isSuccessful) {
+                            RegisterSuccesfull()
+                        } else {
+                            RegisterBad()
+                        }
+                    }
+                }else{
+                    RegisterBad()
+                }
+            } catch (e: Exception) {
+                Log.e("Error", e.message.toString())
+            }
+        }
+
+
     }
 
 
