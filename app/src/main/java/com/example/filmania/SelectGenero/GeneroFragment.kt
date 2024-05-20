@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.filmania.FilmaniaApplication
 import com.example.filmania.MainActivity
+import com.example.filmania.Retrofit.Genero.GeneroService
 import com.example.filmania.SelectGenero.adapter.GeneroAdapter
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
@@ -21,7 +23,7 @@ import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentGeneroBinding
-import com.google.gson.Gson
+import kotlinx.coroutines.launch
 
 class GeneroFragment : Fragment(), OnClickListener {
 
@@ -60,20 +62,28 @@ class GeneroFragment : Fragment(), OnClickListener {
     }
 
     private fun cargarGenero(){
-        val genero = mutableListOf<Genero>()
-        genero.add(Genero(1, "Accion", "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"))
-        genero.add(Genero(2, "Aventura", "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"))
-        genero.add(Genero(3, "Comedia", "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"))
-        genero.add(Genero(4, "Drama", "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"))
-        genero.add(Genero(5, "Fantasia", "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"))
-        genero.add(Genero(6, "Terror", "https://image.tmdb.org/t/p/w500/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg"))
 
-        val generoAdapter = mBinding.rvGenero.adapter as GeneroAdapter
+        val generoService = FilmaniaApplication.retrofit.create(GeneroService::class.java)
 
-        generoAdapter.submitList(genero)
+        lifecycleScope.launch {
+            try {
+                val response = generoService.getGenero()
+
+                if (response.isSuccessful){
+                    val genero = response.body()
+                    val generoAdapter = mBinding.rvGenero.adapter as GeneroAdapter
+                    generoAdapter.submitList(genero)
+                }else{
+                    Log.e("GeneroFragment", "Error al cargar los generos")
+                }
+
+            }catch (e: Exception){
+                Log.e("GeneroFragment", "Error al cargar los generos", e)
+            }
+        }
     }
 
-    private fun saveList(context: Context, list: MutableList<Genero>) {
+    private fun saveGeneros(context: Context, list: MutableList<Genero>) {
         val editor = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).edit()
         editor.putLong("id_g", list[0].id)
         editor.putLong("id_g2", list[1].id)
@@ -96,7 +106,7 @@ class GeneroFragment : Fragment(), OnClickListener {
     override fun onCLickGenero(genero: Genero) {
         generosSelect.add(genero)
         if (generosSelect.size == 3){
-            saveList(requireContext(), generosSelect)
+            saveGeneros(requireContext(), generosSelect)
             ChangeActivityMain()
         }
     }

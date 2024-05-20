@@ -4,12 +4,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import com.example.filmania.FilmaniaApplication
 import com.example.filmania.MainActivity
 import com.example.filmania.Registro.RegistrarseActivity
+import com.example.filmania.Retrofit.Usuario.UsuarioService
 import com.example.filmania.SelectGenero.GeneroFragment
 import com.example.filmania.common.Entyty.Usuario
+import com.example.filmania.common.Entyty.Usuario_raw
+import com.example.filmania.common.utils.Constantes
 import com.example.filmania.databinding.ActivityIniciarSesionBinding
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class IniciarSesionActivity : AppCompatActivity() {
 
@@ -43,6 +51,37 @@ class IniciarSesionActivity : AppCompatActivity() {
         if(Username.isEmpty() || Password.isEmpty()) {
             mBinding.tilUsername.error = "Campo vacio"
             mBinding.tilPassword.error = "Campo vacio"
+        }else{
+            val usuarioRaw = Usuario_raw(Username, Password)
+
+
+            val userService = FilmaniaApplication.retrofit.create(UsuarioService::class.java)
+
+            lifecycleScope.launch {
+                try {
+                    val response = userService.loginUser(usuarioRaw)
+                    if(response.isSuccessful) {
+                        val user = response.body()
+                        if(user != null) {
+                            saveUserId(user.id)
+                            val isFirstTime = getIsFirstTime(user.id)
+                            if(isFirstTime) {
+                                navigateToGeneroFragment()
+                                saveIsFirstTime(false, user.id)
+                            }else{
+                                navigateToMainActivity()
+                            }
+                        }else{
+                            mBinding.tilUsername.error = "Usuario o contraseña incorrectos"
+                            mBinding.tilPassword.error = "Usuario o contraseña incorrectos"
+                        }
+                }
+
+                }catch (e: Exception) {
+                    Log.e("IniciarSesionActivity", "Error: ${e.message}")
+                }
+            }
+
         }
     }
 
@@ -77,10 +116,10 @@ class IniciarSesionActivity : AppCompatActivity() {
         return sharedPreferences.getBoolean("isFirstTime_$userId", true)
     }
 
-    private fun saveUserId(user: Usuario ) {
+    private fun saveUserId(user: Int ) {
         val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putInt("userId", user.id)
+        editor.putInt("userId", user)
         editor.apply()
     }
 

@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.filmania.FilmaniaApplication
 import com.example.filmania.InicioSesion.IniciarSesionActivity
 import com.example.filmania.R
 import com.example.filmania.Registro.Adapter.CountrySpinnerAdapter
@@ -202,12 +203,8 @@ class RegistrarseActivity : AppCompatActivity() {
 
     private fun RegisterUser(Username: String, Password: String,Password2: String, pais: String, correo: String, genero: String, imagen: String)
     {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constantes.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
-        val userService = retrofit.create(UsuarioService::class.java)
+        val userService = FilmaniaApplication.retrofit.create(UsuarioService::class.java)
 
         lifecycleScope.launch {
             try {
