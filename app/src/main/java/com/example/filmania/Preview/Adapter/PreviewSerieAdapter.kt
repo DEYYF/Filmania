@@ -55,7 +55,7 @@ class PreviewSerieAdapter(private var listener: OnClickListener): ListAdapter<Se
 
     class SerieDiffCallback: DiffUtil.ItemCallback<Series>() {
         override fun areItemsTheSame(oldItem: Series, newItem: Series): Boolean {
-            return oldItem.Id == newItem.Id
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Series, newItem: Series): Boolean {

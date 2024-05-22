@@ -2,24 +2,31 @@ package com.example.filmania.Peliculasyseries
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.filmania.FilmaniaApplication
 import com.example.filmania.Preview.PreviewFragment
 import com.example.filmania.Preview.Preview_Serie_Fragment
+import com.example.filmania.Retrofit.Peliculas.PeliculasService
+import com.example.filmania.Retrofit.Series.SeriesService
 import com.example.filmania.Tickets.adapter.PeliculasAdapter
 import com.example.filmania.Tickets.adapter.SeriesAdapter
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
+import com.example.filmania.common.Entyty.Media
 import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentPeliculasySeriesBinding
+import kotlinx.coroutines.launch
 
 class PeliculasySeriesFragment : Fragment(), OnClickListener {
 
@@ -51,6 +58,8 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
         mBinding.rcPeliculas.layoutManager = peliculasLayoutManager
         mBinding.rcPeliculas.adapter = peliculasAdapter
 
+        cargarPeliculas()
+
         val seriesAdapter = SeriesAdapter(this)
         val seriesLayoutManager = GridLayoutManager(requireContext(), 2)
 
@@ -58,41 +67,62 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
         mBinding.rcSeries.layoutManager = seriesLayoutManager
         mBinding.rcSeries.adapter = seriesAdapter
 
-        cargarPeliculas()
+
         cargarSeries()
     }
 
 
 
     private fun cargarPeliculas(){
-        val peliculas = mutableListOf<Peliculas>()
+        val peliculasService = FilmaniaApplication.retrofit.create(PeliculasService::class.java)
 
-        val peliculasAdapter = mBinding.rcPeliculas.adapter as PeliculasAdapter
-        peliculasAdapter.submitList(peliculas)
+        lifecycleScope.launch {
+            try {
+                val response = peliculasService.getPeliculas()
+                if (response.isSuccessful) {
+                    val peliculas = response.body()
+                    if (peliculas != null) {
+                        val peliculasAdapter = mBinding.rcPeliculas.adapter as PeliculasAdapter
+                        peliculasAdapter.submitList(peliculas)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("Peliculas", e.message.toString())
+            }
+        }
     }
 
 
     private fun cargarSeries(){
-        val series = mutableListOf<Series>()
+        val seriesService = FilmaniaApplication.retrofit.create(SeriesService::class.java)
 
-
-
-        val seriesAdapter = mBinding.rcSeries.adapter as SeriesAdapter
-        seriesAdapter.submitList(series)
-
+        lifecycleScope.launch {
+            try {
+                val response = seriesService.getSeries()
+                if (response.isSuccessful) {
+                    val series = response.body()
+                    if (series != null) {
+                        val seriesAdapter = mBinding.rcSeries.adapter as SeriesAdapter
+                        seriesAdapter.submitList(series)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e("Error", e.message.toString())
+            }
+        }
     }
 
-    private fun saveserieid(serie: Series){
+    private fun saveserieid(serieid: Long){
         val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putLong("serieId", serie.Id)
+        editor.putLong("serieId", serieid)
         editor.apply()
     }
 
-    private fun savePeliid(pelicula: Peliculas){
+    private fun savePeliid(peliculaid: Long){
         val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putLong("peliId", pelicula.id)
+        editor.putLong("peliId", peliculaid)
         editor.apply()
     }
 
@@ -118,7 +148,7 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
 
 
     override fun onClickPelicula(pelicula: Peliculas) {
-        savePeliid(pelicula)
+        savePeliid(pelicula.id)
         navigateToGeneroFragment(1)
     }
 
@@ -127,7 +157,7 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickSerie(serie: Series) {
-        saveserieid(serie)
+        saveserieid(serie.id)
         navigateToGeneroFragment(2)
     }
 
@@ -148,6 +178,10 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickMedia(media: Media) {
         TODO("Not yet implemented")
     }
 

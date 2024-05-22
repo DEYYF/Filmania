@@ -45,12 +45,12 @@ class PreviewAdapter(private var listener: OnClickListener): ListAdapter<Pelicul
         with(holder as ViewHolder){
             setListener(pelicula)
             with(mBinding){
-                tvNombre.text = pelicula.titulo
-                tvDescription.text = pelicula.descripcion
-                tvYear.text = pelicula.ano.toString()
-                tvDuracion.text = pelicula.duracion.toString() + " min"
+                tvNombre.text = pelicula.Titulo
+                tvDescription.text = pelicula.Descripcion
+                tvYear.text = pelicula.Ano.toString()
+                tvDuracion.text = pelicula.Duracion.toString() + " min"
                 Glide.with(context)
-                    .load(pelicula.imagen)
+                    .load(pelicula.Imagen)
                     .centerCrop()
                     .into(ivPreview)
 

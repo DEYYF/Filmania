@@ -44,12 +44,11 @@ class PeliculasAdapter(private var listener: OnClickListener) : ListAdapter<Peli
             with(holder as ViewHolder){
                 setListener(peli)
                 with(mBinding){
-                    tvTitulo.text = peli.titulo
+                    tvTitulo.text = peli.Titulo
                     val animation = AnimationUtils.loadAnimation(context, R.anim.series_pelis_text_animation)
                     tvTitulo.startAnimation(animation)
-
                     Glide.with(context)
-                        .load(peli.imagen)
+                        .load(peli.Imagen)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .centerCrop()
                         .into(imgPeliSerie)

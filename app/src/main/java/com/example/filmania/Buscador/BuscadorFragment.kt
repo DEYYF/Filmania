@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
+import com.example.filmania.common.Entyty.Media
 import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
@@ -66,6 +67,10 @@ class BuscadorFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickMedia(media: Media) {
         TODO("Not yet implemented")
     }
 

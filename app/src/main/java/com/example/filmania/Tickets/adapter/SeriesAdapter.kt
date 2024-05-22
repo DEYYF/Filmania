@@ -67,7 +67,7 @@ class SeriesAdapter(private var listener: OnClickListener) : ListAdapter<Series,
     {
         override fun areItemsTheSame(oldItem: Series, newItem: Series): Boolean
         {
-            return oldItem.Id == newItem.Id
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Series, newItem: Series): Boolean

@@ -9,6 +9,12 @@
     tools:context=".Preview.Preview_Serie_Fragment"
     android:background="@color/Darkblue">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:listitem="@layout/item_preview"/>
+
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
@@ -20,10 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         android:backgroundTint="@color/white"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_preview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/item_preview"/>
+
 
 </FrameLayout>

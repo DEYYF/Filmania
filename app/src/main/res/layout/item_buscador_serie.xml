@@ -8,7 +8,6 @@
     app:cardCornerRadius="@dimen/common_padding_default"
     android:layout_margin="@dimen/common_padding_min">
 
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,8 +19,7 @@
             android:contentDescription="@string/imagen_peli_serie"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
             android:id="@+id/tvTitulo"
@@ -34,10 +32,7 @@
             app:layout_constraintStart_toEndOf="@id/imgPeli_serie"
             app:layout_constraintEnd_toStartOf="@id/ibtnAdd"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="@dimen/common_padding_default"/>
-
-
-
+            android:layout_margin="@dimen/common_padding_default" />
 
         <ImageButton
             android:id="@+id/ibtnclock"
@@ -48,7 +43,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="@dimen/common_padding_default"/>
+            android:layout_margin="@dimen/common_padding_default" />
 
         <ImageButton
             android:id="@+id/ibtnfav"
@@ -59,7 +54,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ibtnclock"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_margin="@dimen/common_padding_default"/>
+            android:layout_margin="@dimen/common_padding_default" />
 
         <ImageButton
             android:id="@+id/ibtnAdd"
@@ -70,16 +65,21 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ibtnfav"
-            android:layout_margin="@dimen/common_padding_default"/>
+            android:layout_margin="@dimen/common_padding_default" />
 
-
-
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/ibtnAdd"
+            app:layout_constraintStart_toStartOf="@id/ibtnAdd"
+            app:layout_constraintEnd_toEndOf="@id/ibtnclock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_goneMarginTop="8dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
 
 </androidx.cardview.widget.CardView>

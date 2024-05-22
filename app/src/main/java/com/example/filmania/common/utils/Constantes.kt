@@ -14,6 +14,7 @@ object Constantes {
     //Series
     const val Series_api = "/Series"
     const val SeriesGenero = "/Series/Genero"
+    const val Serie = "/Serie"
 
     //Peliculas
     const val Peliculas_api = "/Peliculas"

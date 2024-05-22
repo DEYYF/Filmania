@@ -1,7 +1,7 @@
 package com.example.filmania.common.Entyty
 
 data class Series(
-    var Id: Long,
+    var id: Long,
     val Titulo: String,
     val Descripcion: String,
     val Imagen: String,

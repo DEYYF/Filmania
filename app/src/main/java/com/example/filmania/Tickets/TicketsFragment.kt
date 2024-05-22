@@ -14,17 +14,20 @@ import com.example.filmania.Preview.PreviewFragment
 import com.example.filmania.Preview.Preview_Serie_Fragment
 import com.example.filmania.Retrofit.Peliculas.PeliculasService
 import com.example.filmania.Retrofit.Series.SeriesService
+import com.example.filmania.Tickets.adapter.MediaAdapter
 import com.example.filmania.Tickets.adapter.PeliculasAdapter
 import com.example.filmania.Tickets.adapter.SeriesAdapter
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
+import com.example.filmania.common.Entyty.Media
 import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentTicketsBinding
+import com.google.gson.Gson
 import kotlinx.coroutines.launch
 
 
@@ -70,6 +73,15 @@ class TicketsFragment : Fragment(), OnClickListener {
 
         cargarPeliculas() // Llamar a cargarPeliculas después de asignar el adaptador
         cargarSeries() // Llamar a cargarSeries después de asignar el adaptador
+
+        val mediaAdapter = MediaAdapter(this)
+        val mediaLayoutManager = LinearLayoutManager(requireContext())
+
+        mediaLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+
+        mBinding.rcVistoAnteriormente.layoutManager = mediaLayoutManager
+        mBinding.rcVistoAnteriormente.adapter = mediaAdapter
+
     }
 
 
@@ -165,7 +177,7 @@ class TicketsFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickSerie(serie: Series) {
-        saveserieid(serie.Id)
+        saveserieid(serie.id)
         navigateToGeneroFragment(2)
     }
 
@@ -186,6 +198,10 @@ class TicketsFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickMedia(media: Media) {
         TODO("Not yet implemented")
     }
 
