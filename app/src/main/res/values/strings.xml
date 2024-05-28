@@ -44,4 +44,11 @@
     <string name="descripcion">Descripcion</string>
     <string name="trailer">Trailer</string>
     <string name="back">Volver</string>
+    <string name="filtrar_por_g_nero_y_a_o">Filtrar por Género y Año</string>
+    <string name="genero_">Género:</string>
+    <string name="año">Año:</string>
+    <string name="aplicar_filtro">Aplicar Filtro</string>
+    <string name="borrar_filtro">Borrar Filtro</string>
+    <string name="titulo_libreria">Titulo</string>
+    <string name="agregar_contenido">Crear Libreria</string>
 </resources>

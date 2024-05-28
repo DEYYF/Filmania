@@ -1,55 +1,48 @@
-package com.example.filmania.DetallesNoticia.adapter.DetalleAdapter
+package com.example.filmania.DetallesNoticia.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.databinding.ItemNoticiasViewBinding
 
-class DetalleAdapter(): ListAdapter<Noticias, RecyclerView.ViewHolder>(NoticiasDiffUtil()){
+class DetalleAdapter(private var noticia: Noticias?) : RecyclerView.Adapter<DetalleAdapter.ViewHolder>() {
 
     private lateinit var context: Context
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val mBinding = ItemNoticiasViewBinding.bind(view)
-
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         context = parent.context
-
         val view = LayoutInflater.from(context).inflate(R.layout.item_noticias_view, parent, false)
-
         return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val noticia = getItem(position)
-        with(holder as ViewHolder){
-            with(mBinding){
-                tvTitulo.text = noticia.titulo
-                tvDesc.text = noticia.descripcion
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        noticia?.let {
+            with(holder.mBinding) {
+                tvTitulo.text = it.titulo
+                tvDesc.text = it.descripcion
                 Glide.with(context)
-                    .load(noticia.imagen)
+                    .load(it.imagen)
                     .centerCrop()
                     .into(ivNoticia)
             }
         }
     }
 
-    class NoticiasDiffUtil: DiffUtil.ItemCallback<Noticias>(){
-        override fun areItemsTheSame(oldItem: Noticias, newItem: Noticias): Boolean {
-            return oldItem.id == newItem.id
-        }
+    override fun getItemCount(): Int {
+        return 1
+    }
 
-        override fun areContentsTheSame(oldItem: Noticias, newItem: Noticias): Boolean {
-            return oldItem == newItem
-        }
+    fun updateData(newNoticia: Noticias) {
+        this.noticia = newNoticia
+        notifyDataSetChanged()
     }
 }

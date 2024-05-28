@@ -1,10 +1,17 @@
 package com.example.filmania.Preview
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmania.FilmaniaApplication
+import com.example.filmania.Preview.Adapter.PreviewAdapter
+import com.example.filmania.Preview.Adapter.PreviewSerieAdapter
+import com.example.filmania.Retrofit.Peliculas.PeliculasService
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -15,6 +22,7 @@ import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentPreviewBinding
+import kotlinx.coroutines.launch
 
 
 class PreviewFragment : Fragment(), OnClickListener {
@@ -38,15 +46,50 @@ class PreviewFragment : Fragment(), OnClickListener {
             navigateToGeneroFragment()
         }
 
+        setupRecyclerView()
+
 
     }
 
 
     private fun navigateToGeneroFragment() {
         navigateBack()
+
     }
 
-    // Function to navigate back to the previous fragment
+    private fun setupRecyclerView() {
+        val adapter = PreviewAdapter(this, null)
+        val previewLayoutManager = LinearLayoutManager(requireContext())
+
+        mBinding.rcPreview.layoutManager = previewLayoutManager
+        mBinding.rcPreview.adapter = adapter
+
+        cargarpelicula()
+    }
+
+    private fun cargarpelicula() {
+        val peli_id = catchpeliId()
+        val service = FilmaniaApplication.retrofit.create(PeliculasService::class.java)
+
+        lifecycleScope.launch {
+            val response = service.getPelicula(peli_id)
+
+            if (response.isSuccessful) {
+                val pelicula = response.body()
+                val previewAdapter = mBinding.rcPreview.adapter as PreviewAdapter
+                previewAdapter.updatePelicula(pelicula)
+
+            }
+        }
+    }
+
+    private fun catchpeliId(): Long {
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val peli_id = sharedPreferences.getLong("peliId", 0)
+
+        return peli_id
+    }
+
     private fun navigateBack() {
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack()
@@ -80,7 +123,23 @@ class PreviewFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
+    override fun onClickLibreriaDelete(Libreria: Libreria) {
+        TODO("Not yet implemented")
+    }
+
     override fun onClickBusqueda(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaAdd(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedafav(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
         TODO("Not yet implemented")
     }
 

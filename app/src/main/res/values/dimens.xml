@@ -13,4 +13,6 @@
     <dimen name="margin_top_35">35dp</dimen>
     <dimen name="searchview_width_350dp">350dp</dimen>
     <dimen name="pais_dimen">50dp</dimen>
+    <dimen name="_18sp">18sp</dimen>
+    <dimen name="_45dp">45dp</dimen>
 </resources>

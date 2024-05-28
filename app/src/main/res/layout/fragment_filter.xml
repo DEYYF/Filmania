@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Buscador.FilterFragment">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filtrar_por_g_nero_y_a_o"
+            android:textSize="@dimen/_18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="@dimen/common_padding_default" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/genero_"
+            android:paddingBottom="@dimen/common_padding_min"
+            android:textColor="@color/yellow"/>
+
+        <Spinner
+            android:id="@+id/spinnerGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:elevation="@dimen/margin_top_35"
+            android:background="@color/yellow" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/año"
+            android:paddingBottom="8dp"
+            android:textColor="@color/yellow"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/black"
+            android:background="@color/yellow"/>
+
+        <Button
+            android:id="@+id/buttonApplyFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/aplicar_filtro"
+            android:backgroundTint="@color/yellow_d"
+            android:textColor="@color/black"/>
+
+        <Button
+            android:id="@+id/buttonDeleteFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/borrar_filtro"
+            android:backgroundTint="@color/yellow_d"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+</FrameLayout>

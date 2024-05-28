@@ -9,6 +9,8 @@ class FilmaniaApplication: Application() {
 
     companion object {
         lateinit var retrofit: Retrofit
+        lateinit var Genero_: String
+        lateinit var Anio_: String
     }
 
     override fun onCreate() {
@@ -18,5 +20,8 @@ class FilmaniaApplication: Application() {
             .baseUrl(Constantes.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+        Genero_ = ""
+        Anio_ = ""
     }
 }

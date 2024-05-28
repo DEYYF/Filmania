@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,9 +23,13 @@ class BuscadorAdapter(private var listener: OnClickListener): ListAdapter<Busque
         fun setListener(busqueda: Busqueda){
             with(mBinding){
                 cvBuscadorserie.setOnClickListener{ listener.onClickBusqueda(busqueda) }
+                ibtnAdd.setOnClickListener{ listener.onClickBusquedaAdd(busqueda) }
+                ibtnfav.setOnClickListener{ listener.onClickBusquedafav(busqueda) }
+                ibtnclock.setOnClickListener{ listener.onClickBusquedaVerMasTarde(busqueda) }
             }
         }
     }
+
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -34,11 +39,11 @@ class BuscadorAdapter(private var listener: OnClickListener): ListAdapter<Busque
             setListener(busqueda)
             with(mBinding){
                 Glide.with(context)
-                    .load(busqueda.imagen)
+                    .load(busqueda.Imagen)
                     .centerCrop()
                     .into(imgPeliSerie)
-                tvTitulo.text = busqueda.titulo
-                ratingBar.rating = busqueda.
+                tvTitulo.text = busqueda.Titulo
+                tvValoracion.text = busqueda.Valoracion.toString()
             }
         }
     }
@@ -49,5 +54,17 @@ class BuscadorAdapter(private var listener: OnClickListener): ListAdapter<Busque
         val view = LayoutInflater.from(context).inflate(R.layout.item_buscador_serie, parent, false)
 
         return ViewHolder(view)
+    }
+
+
+    class BusquedaDiffCallback: DiffUtil.ItemCallback<Busqueda>() {
+        override fun areItemsTheSame(oldItem: Busqueda, newItem: Busqueda): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Busqueda, newItem: Busqueda): Boolean {
+            return oldItem == newItem
+        }
+
     }
 }

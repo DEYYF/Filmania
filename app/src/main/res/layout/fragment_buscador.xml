@@ -17,9 +17,20 @@
         android:background="@drawable/searchview_rounded"
         app:queryBackground="@null"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/filter_button"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/common_padding_default"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/filter_button"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:src="@drawable/filter_svgrepo_com"
+        app:layout_constraintTop_toTopOf="@id/searchview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/searchview"
+        app:layout_constraintBottom_toBottomOf="@id/searchview"
+        android:backgroundTint="@color/white"/>
 
 
 
@@ -33,21 +44,18 @@
                 android:layout_height="match_parent">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rc_buscador_serie"
+                    android:id="@+id/rc_buscador"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/item_buscador_serie"
                     android:scrollbars="vertical"
                     android:layout_marginTop="@dimen/margin_top_35"
+                    android:paddingBottom="65dp"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rc_buscador_peli"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_buscador_serie"
-                    android:scrollbars="vertical"
-                    app:layout_constraintTop_toBottomOf="@id/rc_buscador_serie"/>
+
+
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

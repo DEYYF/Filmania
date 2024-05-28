@@ -1,12 +1,15 @@
 package com.example.filmania.DetallesNoticia.adapter
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.filmania.DetallesNoticia.adapter.DetalleAdapter.DetalleAdapter
+import com.example.filmania.FilmaniaApplication
+import com.example.filmania.Retrofit.Noticias.NoticiasService
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -17,6 +20,7 @@ import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentDetalleBinding
+import kotlinx.coroutines.launch
 
 class DetalleFragment : Fragment(), OnClickListener {
 
@@ -42,13 +46,17 @@ class DetalleFragment : Fragment(), OnClickListener {
 
     private fun SetupRecyclerView(){
 
-        val detalleAdapter = DetalleAdapter()
+        val detalleAdapter = DetalleAdapter(null)
         val detalleLayoutManager = LinearLayoutManager(requireContext())
 
         detalleLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
 
         mBinding.rcDetalle.layoutManager = detalleLayoutManager
         mBinding.rcDetalle.adapter = detalleAdapter
+
+        cargarNoticia()
+
+
     }
 
     private fun navigateToGeneroFragment() {
@@ -60,6 +68,30 @@ class DetalleFragment : Fragment(), OnClickListener {
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack()
     }
+
+    private fun cargarNoticia() {
+        val noticiasService = FilmaniaApplication.retrofit.create(NoticiasService::class.java)
+
+        lifecycleScope.launch {
+            val response = noticiasService.getNoticia(getNoticiashared())
+            if (response.isSuccessful) {
+                val noticia = response.body()
+                if (noticia != null) {
+                    val detalleAdapter = DetalleAdapter(noticia)
+                    mBinding.rcDetalle.adapter = detalleAdapter
+                    detalleAdapter.updateData(noticia)
+                }
+            }
+        }
+    }
+
+    private fun getNoticiashared(): Long {
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val noticia = sharedPreferences.getLong("noticias_id", 0)
+
+        return noticia
+    }
+
 
     override fun onCLickGenero(genero: Genero) {
         TODO("Not yet implemented")
@@ -89,7 +121,25 @@ class DetalleFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
+    override fun onClickLibreriaDelete(Libreria: Libreria) {
+        TODO("Not yet implemented")
+    }
+
+
+
     override fun onClickBusqueda(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaAdd(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedafav(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
         TODO("Not yet implemented")
     }
 

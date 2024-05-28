@@ -67,18 +67,19 @@
             app:layout_constraintEnd_toStartOf="@id/ibtnfav"
             android:layout_margin="@dimen/common_padding_default" />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
+        <TextView
+            android:id="@+id/tvValoracion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:stepSize="1"
-            android:layout_marginTop="4dp"
-            app:layout_constraintTop_toBottomOf="@+id/ibtnAdd"
-            app:layout_constraintStart_toStartOf="@id/ibtnAdd"
-            app:layout_constraintEnd_toEndOf="@id/ibtnclock"
+            android:text="Valoracion"
+            android:textColor="@color/yellow"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/ibtnAdd"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_goneMarginTop="8dp" />
+            app:layout_constraintEnd_toEndOf="@id/ibtnclock"/>
+
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,10 +1,20 @@
 package com.example.filmania.Buscador
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmania.Buscador.adapter.BuscadorAdapter
+import com.example.filmania.FilmaniaApplication
+import com.example.filmania.R
+import com.example.filmania.Retrofit.Busqueda.BusquedaService
+import com.example.filmania.Retrofit.Librerias.LibreriaService
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -15,10 +25,16 @@ import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentBuscadorBinding
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class BuscadorFragment : Fragment(), OnClickListener {
 
     private lateinit var mBinding: FragmentBuscadorBinding
+
+    private lateinit var media: MutableList<Busqueda>
+
+    private lateinit var response: Response<MutableList<Busqueda>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +47,85 @@ class BuscadorFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //setupRecyclerView()
+        setupRecyclerView()
+        setupSearchView()
+        mBinding.filterButton.setOnClickListener {
+            changetoFilter()
+        }
+    }
+
+    private fun setupRecyclerView() {
+        val adapter = BuscadorAdapter(this)
+        val buscadorLayoutManager = LinearLayoutManager(requireContext())
+
+
+        mBinding.rcBuscador.layoutManager = buscadorLayoutManager
+        mBinding.rcBuscador.adapter = adapter
+
+        cargarBusqueda()
+
+
+    }
+
+    private fun cargarBusqueda(){
+        val busqueda = FilmaniaApplication.retrofit.create(BusquedaService::class.java)
+        lifecycleScope.launch {
+            if (FilmaniaApplication.Genero_ == "" && FilmaniaApplication.Anio_ == "") {
+                response = busqueda.getBusqueda()
+            }else if(FilmaniaApplication.Genero_ != "" && FilmaniaApplication.Anio_ == ""){
+                response = busqueda.getBusquedaGenero(FilmaniaApplication.Genero_)
+            }else if(FilmaniaApplication.Genero_ == "" && FilmaniaApplication.Anio_ != ""){
+                response = busqueda.getBusquedaAno(FilmaniaApplication.Anio_)
+            }else if (FilmaniaApplication.Genero_ != "" && FilmaniaApplication.Anio_ != ""){
+                response = busqueda.getBusquedaGeneroAno(FilmaniaApplication.Anio_, FilmaniaApplication.Genero_)
+            }
+            if(response.isSuccessful){
+                media = response.body()!!
+                if(busqueda != null){
+                    val busquedaAdapter = mBinding.rcBuscador.adapter as BuscadorAdapter
+                    busquedaAdapter.submitList(media)
+                }
+            }
+        }
+    }
+
+
+    private fun setupSearchView() {
+        mBinding.searchview.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val filteredList = media.filter {it.Titulo.contains(newText!!, ignoreCase = true)}
+
+                val busquedaAdapter = mBinding.rcBuscador.adapter as BuscadorAdapter
+                busquedaAdapter.submitList(filteredList)
+
+                return true
+            }
+        })
+    }
+
+    private fun changetoFilter() {
+        val fragment = FilterFragment()
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.hostFragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
+    private fun getUserId() : Long{
+        val sharedPref = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        return sharedPref.getInt("userId", 0).toLong()
+    }
+
+    private fun addFavoritoToast(){
+        Toast.makeText(requireContext(), "Añadido a favoritos", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addVerMasTardeToast(){
+        Toast.makeText(requireContext(), "Añadido a ver más tarde", Toast.LENGTH_SHORT).show()
     }
 
     override fun onCLickGenero(genero: Genero) {
@@ -62,8 +156,40 @@ class BuscadorFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
+    override fun onClickLibreriaDelete(Libreria: Libreria) {
+        TODO("Not yet implemented")
+    }
+
+
     override fun onClickBusqueda(busqueda: Busqueda) {
         TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaAdd(busqueda: Busqueda) {
+
+    }
+
+    override fun onClickBusquedafav(busqueda: Busqueda) {
+
+        val libreriaService = FilmaniaApplication.retrofit.create(LibreriaService::class.java)
+
+        lifecycleScope.launch {
+            val response = libreriaService.addFavoritoLibreria(getUserId(), busqueda.id)
+            if(response.isSuccessful){
+                addFavoritoToast()
+            }
+        }
+    }
+
+    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
+        val libreriaService = FilmaniaApplication.retrofit.create(LibreriaService::class.java)
+
+        lifecycleScope.launch {
+            val response = libreriaService.addVerMasTardeLibreria(getUserId(), busqueda.id)
+            if(response.isSuccessful){
+                addVerMasTardeToast()
+            }
+        }
     }
 
     override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
@@ -74,48 +200,5 @@ class BuscadorFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    /* private fun setupRecyclerView() {
-         // Configuración del RecyclerView de películas
-         val peliculasAdapter = BuscadorPeliculasAdapter(this)
-         val peliculasLayoutManager = LinearLayoutManager(requireContext())
-         peliculasLayoutManager.orientation = LinearLayoutManager.VERTICAL
-         mBinding.rcBuscadorPeli.layoutManager = peliculasLayoutManager
-         mBinding.rcBuscadorPeli.adapter = peliculasAdapter
-
-         // Configuración del RecyclerView de series
-         val seriesAdapter = BuscadorSeriesAdapter(this)
-         val seriesLayoutManager = LinearLayoutManager(requireContext())
-         seriesLayoutManager.orientation = LinearLayoutManager.VERTICAL
-         mBinding.rcBuscadorSerie.layoutManager = seriesLayoutManager
-         mBinding.rcBuscadorSerie.adapter = seriesAdapter
-
-         // Cargar datos de películas y series
-         cargarPeliculas()
-         cargarSeries()
-     }*/
-
-   /* private fun cargarPeliculas() {
-        val peliculas = mutableListOf<Pelicula>()
-
-        // Agregar películas a la lista
-        peliculas.add(Pelicula(1, "The Dark Knight", "Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent", "1 hora y 30 Minutos", "2008", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/qJ2tW6WMUDux911r6m7haRef0WH.jpg"))
-        peliculas.add(Pelicula(2, "The Godfather", "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family.", "2 horas y 30 Minutos", "1972", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/3bhkrj58Vtu7enYsRolD1fZdja1.jpg"))
-
-        // Enviar la lista de películas al adaptador
-        val peliculasAdapter = mBinding.rcBuscadorPeli.adapter as BuscadorPeliculasAdapter
-        peliculasAdapter.submitList(peliculas)
-    }*/
-
-    /*private fun cargarSeries() {
-        val series = mutableListOf<Serie>()
-
-        // Agregar series a la lista
-        series.add(Serie(1, "The Mandalorian", "The Mandalorian es una serie de televisión web de espacio de ciencia ficción estadounidense que se estrenó en Disney+ el 12 de noviembre de 2019. Ambientada en el universo de Star Wars, la serie tiene lugar cinco años después de los eventos de Return of the Jedi y sigue a un solitario pistolero más allá de los límites de la Nueva República.", 2, "2019","" ,"https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9k9Hwq8qMMs0DhB9z5AdkTzrUu1.jpg"))
-        series.add(Serie(2, "The Witcher", "The Witcher es una serie de televisión web de drama de fantasía polaca-estadounidense. Basada en la serie de libros de The Witcher del autor polaco Andrzej Sapkowski, la serie fue desarrollada por Lauren Schmidt Hissrich. La serie se estrenó en Netflix el 20 de diciembre de 2019.", 2, "2019", "","https://www.themoviedb.org/t/p/w600_and_h900_bestv2/zrPpUlehQaBf8YX2NrVrKK8IEcA.jpg"))
-
-        // Enviar la lista de series al adaptador
-        val seriesAdapter = mBinding.rcBuscadorSerie.adapter as BuscadorSeriesAdapter
-        seriesAdapter.submitList(series)
-    }*/
 
 }

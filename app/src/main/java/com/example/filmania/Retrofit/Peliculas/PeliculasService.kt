@@ -13,4 +13,7 @@ interface PeliculasService {
 
     @GET(Constantes.BASE_URL + Constantes.Peliculas_api)
     suspend fun getPeliculas(): Response<MutableList<Peliculas>>
+
+    @GET(Constantes.BASE_URL + Constantes.Pelicula)
+    suspend fun getPelicula(@Query("id") id: Long): Response<Peliculas>
 }

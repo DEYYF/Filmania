@@ -173,7 +173,24 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
+    override fun onClickLibreriaDelete(Libreria: Libreria) {
+        TODO("Not yet implemented")
+    }
+
+
     override fun onClickBusqueda(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaAdd(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedafav(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
         TODO("Not yet implemented")
     }
 

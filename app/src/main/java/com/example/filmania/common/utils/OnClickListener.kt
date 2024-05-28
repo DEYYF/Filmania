@@ -27,7 +27,12 @@ interface OnClickListener {
 
     fun onClickLibreria(Libreria: Libreria)
 
+    fun onClickLibreriaDelete(Libreria: Libreria)
+
     fun onClickBusqueda(busqueda: Busqueda)
+    fun onClickBusquedaAdd(busqueda: Busqueda)
+    fun onClickBusquedafav(busqueda: Busqueda)
+    fun onClickBusquedaVerMasTarde(busqueda: Busqueda)
 
     fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria)
 

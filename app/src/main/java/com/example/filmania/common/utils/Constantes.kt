@@ -19,6 +19,7 @@ object Constantes {
     //Peliculas
     const val Peliculas_api = "/Peliculas"
     const val PeliculasGenero = "/Peliculas/Genero"
+    const val Pelicula = "/Pelicula"
 
     //Generos
     const val Generos = "/Generos"
@@ -26,18 +27,25 @@ object Constantes {
     //Noticias
     const val Noticias_api = "/Noticias"
     const val NoticiasGenero = "/Noticias/Genero"
+    const val Noticia_api = "/Noticia"
 
     //Busqueda
     const val Busqueda_api = "/Busqueda"
-    const val BusquedaGenero = "/Busqueda/Genero"
-    const val Busquedayear = "/Busqueda/Year"
-    const val BusquedaGeneroyYear = "/Busqueda/Genero/Year"
+    const val BusquedaGenero = "/Genero"
+    const val Busquedayear = "/Year"
 
     //Libreria
+    const val Librerias = "/Libreria"
     const val Librerias_api = "/Libreria/User"
     const val contenido_libreria_api = "/Libreria/media"
     const val añadir_Contenido_libreria = "/Libreria/AddMedia"
     const val NewLibreria = "/Libreria/New"
+    const val delLibreria = "/Libreria/Delete"
+    const val addFavoritolibreria = "/Libreria/AddFavorito"
+    const val addVerMasTardelibreria = "/Libreria/AddVerMasTarde"
+    const val CambioConfiguracionLibreria = "/Libreria/Cambio"
+
+
 
 
 

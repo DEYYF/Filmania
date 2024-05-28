@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.DetallesNoticia.adapter.DetalleFragment
+import com.example.filmania.FilmaniaApplication
 import com.example.filmania.Noticia.adapter.NoticiasAdapter
+import com.example.filmania.Retrofit.Noticias.NoticiasService
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -24,6 +27,7 @@ import com.example.filmania.databinding.FragmentNoticiasBinding
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.coroutines.launch
 
 class NoticiasFragment : Fragment(), OnClickListener {
 
@@ -61,26 +65,39 @@ class NoticiasFragment : Fragment(), OnClickListener {
     }
 
     private fun cargarRecomendados() {
-        val allNoticias = getAllNoticias()
         val genero1 = getGenero1()
         val genero2 = getGenero2()
         val genero3 = getGenero3()
 
+        val noticiasService = FilmaniaApplication.retrofit.create(NoticiasService::class.java)
 
-
-
-        //noticiasAdapter.submitList()
+        lifecycleScope.launch {
+            try {
+                val response = noticiasService.getNoticiasGenero(genero1, genero2, genero3)
+                if (response.isSuccessful) {
+                    val noticias = response.body()
+                    noticiasAdapter.submitList(noticias)
+                }
+            } catch (e: Exception) {
+                Log.e("NoticiasFragment", "Error al cargar las noticias", e)
+            }
+        }
     }
 
     private fun cargarTodas() {
-        val allnoticias = getAllNoticias()
-        noticiasAdapter.submitList(allnoticias)
-    }
+        val noticiasService = FilmaniaApplication.retrofit.create(NoticiasService::class.java)
 
-    private fun getAllNoticias(): MutableList<Noticias> {
-        val allNoticias = mutableListOf<Noticias>()
-
-        return allNoticias
+        lifecycleScope.launch {
+            try {
+                val response = noticiasService.getNoticias()
+                if (response.isSuccessful) {
+                    val noticias = response.body()
+                    noticiasAdapter.submitList(noticias)
+                }
+            } catch (e: Exception) {
+                Log.e("NoticiasFragment", "Error al cargar las noticias", e)
+            }
+        }
     }
 
 
@@ -152,7 +169,24 @@ class NoticiasFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
+    override fun onClickLibreriaDelete(Libreria: Libreria) {
+        TODO("Not yet implemented")
+    }
+
+
     override fun onClickBusqueda(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaAdd(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedafav(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
         TODO("Not yet implemented")
     }
 

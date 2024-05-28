@@ -122,10 +122,10 @@ class TicketsFragment : Fragment(), OnClickListener {
 
     }
 
-    private fun saveserieid(id: Long){
+    private fun saveserieid(serieId: Long){
         val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        editor.putLong("serieId", 1)
+        editor.putLong("serieId", serieId)
         editor.apply()
     }
 
@@ -193,7 +193,23 @@ class TicketsFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
+    override fun onClickLibreriaDelete(Libreria: Libreria) {
+        TODO("Not yet implemented")
+    }
+
     override fun onClickBusqueda(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaAdd(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedafav(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
         TODO("Not yet implemented")
     }
 

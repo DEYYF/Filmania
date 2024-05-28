@@ -16,6 +16,6 @@ interface SeriesService {
     suspend fun getSeries(): Response<MutableList<Series>>
 
     @GET(Constantes.BASE_URL + Constantes.Serie)
-    suspend fun getSerie(@Query("id") id: Long): Response<MutableList<Series>>
+    suspend fun getSerie(@Query("id") id: Long): Response<Series>
 
 }
