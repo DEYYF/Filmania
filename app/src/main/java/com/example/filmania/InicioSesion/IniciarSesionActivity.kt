@@ -45,8 +45,8 @@ class IniciarSesionActivity : AppCompatActivity() {
     }
 
     private fun LogIn() {
-        val Username = mBinding.tilUsername.editText?.text.toString()
-        val Password = mBinding.tilPassword.editText?.text.toString()
+        val Username = mBinding.tilUsername.editText?.text.toString().trim()
+        val Password = mBinding.tilPassword.editText?.text.toString().trim()
 
         if(Username.isEmpty() || Password.isEmpty()) {
             mBinding.tilUsername.error = "Campo vacio"
@@ -75,7 +75,10 @@ class IniciarSesionActivity : AppCompatActivity() {
                             mBinding.tilUsername.error = "Usuario o contraseña incorrectos"
                             mBinding.tilPassword.error = "Usuario o contraseña incorrectos"
                         }
-                }
+                }else{
+                        mBinding.tilUsername.error = "Usuario o contraseña incorrectos"
+                        mBinding.tilPassword.error = "Usuario o contraseña incorrectos"
+                    }
 
                 }catch (e: Exception) {
                     Log.e("IniciarSesionActivity", "Error: ${e.message}")

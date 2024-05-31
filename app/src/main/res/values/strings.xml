@@ -51,4 +51,8 @@
     <string name="borrar_filtro">Borrar Filtro</string>
     <string name="titulo_libreria">Titulo</string>
     <string name="agregar_contenido">Crear Libreria</string>
+    <string name="cambiar_contrasena">Cambiar Contraseña</string>
+    <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="librerias">Librerias</string>
+    <string name="repite_la_nueva_contrase_a">Repite la nueva contraseña</string>
 </resources>

@@ -13,6 +13,7 @@ import com.example.filmania.FilmaniaApplication
 import com.example.filmania.Preview.Adapter.PreviewAdapter
 import com.example.filmania.Preview.Adapter.PreviewSerieAdapter
 import com.example.filmania.Retrofit.Series.SeriesService
+import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -145,6 +146,10 @@ class Preview_Serie_Fragment : Fragment(), OnClickListener {
     }
 
     override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
         TODO("Not yet implemented")
     }
 

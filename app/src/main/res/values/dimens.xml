@@ -15,4 +15,7 @@
     <dimen name="pais_dimen">50dp</dimen>
     <dimen name="_18sp">18sp</dimen>
     <dimen name="_45dp">45dp</dimen>
+    <dimen name="_100dp">100dp</dimen>
+    <dimen name="_20sp">20sp</dimen>
+    <dimen name="_80dp">80dp</dimen>
 </resources>

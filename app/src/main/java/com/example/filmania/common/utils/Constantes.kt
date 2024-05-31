@@ -45,6 +45,9 @@ object Constantes {
     const val addVerMasTardelibreria = "/Libreria/AddVerMasTarde"
     const val CambioConfiguracionLibreria = "/Libreria/Cambio"
 
+    //VistoAnteriormente
+    const val VistoAnteriormente = "/VistoAnteriormente"
+    const val VistoAnteriormeteCreate = "/VistoAnteriormente/Create"
 
 
 

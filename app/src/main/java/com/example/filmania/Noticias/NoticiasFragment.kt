@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +15,7 @@ import com.example.filmania.DetallesNoticia.adapter.DetalleFragment
 import com.example.filmania.FilmaniaApplication
 import com.example.filmania.Noticia.adapter.NoticiasAdapter
 import com.example.filmania.Retrofit.Noticias.NoticiasService
+import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -65,9 +67,9 @@ class NoticiasFragment : Fragment(), OnClickListener {
     }
 
     private fun cargarRecomendados() {
-        val genero1 = getGenero1()
-        val genero2 = getGenero2()
-        val genero3 = getGenero3()
+        val genero1 = catchGeneroId(getUserId())[0]
+        val genero2 = catchGeneroId(getUserId())[1]
+        val genero3 = catchGeneroId(getUserId())[2]
 
         val noticiasService = FilmaniaApplication.retrofit.create(NoticiasService::class.java)
 
@@ -77,6 +79,8 @@ class NoticiasFragment : Fragment(), OnClickListener {
                 if (response.isSuccessful) {
                     val noticias = response.body()
                     noticiasAdapter.submitList(noticias)
+                }else{
+                    Toast.makeText(requireContext(), "No hay noticias disponibles", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e("NoticiasFragment", "Error al cargar las noticias", e)
@@ -93,6 +97,8 @@ class NoticiasFragment : Fragment(), OnClickListener {
                 if (response.isSuccessful) {
                     val noticias = response.body()
                     noticiasAdapter.submitList(noticias)
+                }else{
+                    Toast.makeText(requireContext(), "No hay noticias disponibles", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e("NoticiasFragment", "Error al cargar las noticias", e)
@@ -100,29 +106,19 @@ class NoticiasFragment : Fragment(), OnClickListener {
         }
     }
 
-
-    private fun getGenero1(): Long {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
-        val genero1 = sharedPreferences.getLong("id_g", 0)
-
-        return genero1
+    private fun getUserId(): Long {
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        return sharedPreferences.getInt("userId", 0).toLong()
     }
 
-    private fun getGenero2(): Long {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
-        val genero2 = sharedPreferences.getLong("id_g2", 0)
 
-        return genero2
-    }
+    private fun catchGeneroId(user_id: Long): MutableList<Long> {
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val generoId = sharedPreferences.getLong("id_g$user_id", 0)
+        val generoId2 = sharedPreferences.getLong("id_g2$user_id", 0)
+        val generoId3 = sharedPreferences.getLong("id_g3$user_id", 0)
 
-    private fun getGenero3(): Long {
-        val sharedPreferences =
-            requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
-        val genero3 = sharedPreferences.getLong("id_g3", 0)
-
-        return genero3
+        return mutableListOf(generoId, generoId2, generoId3)
     }
 
 
@@ -187,6 +183,10 @@ class NoticiasFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
         TODO("Not yet implemented")
     }
 

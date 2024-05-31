@@ -1,5 +1,6 @@
 package com.example.filmania.common.utils
 
+import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -33,6 +34,8 @@ interface OnClickListener {
     fun onClickBusquedaAdd(busqueda: Busqueda)
     fun onClickBusquedafav(busqueda: Busqueda)
     fun onClickBusquedaVerMasTarde(busqueda: Busqueda)
+
+    fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente)
 
     fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria)
 

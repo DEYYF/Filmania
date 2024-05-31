@@ -24,7 +24,7 @@ interface LibreriaService {
         suspend fun getContenidoLibreria(@Query("id_libreria") id_libreria: Long): Response<MutableList<contenido_libreria>>
 
         @POST(Constantes.BASE_URL + Constantes.añadir_Contenido_libreria)
-        suspend fun addContenidoLibreria(@Query("id_lib") id_lib: Long, @Query("id_med") id_med: Long): Response<Libreria>
+        suspend fun addContenidoLibreria(@Query("id_lib") id_lib: Long, @Query("id_med") id_med: Long): Response<MutableList<POSTADDCONTENIDO>>
 
         @POST(Constantes.BASE_URL + Constantes.NewLibreria + "/{id_usuario}")
         suspend fun newLibreria(@Path("id_usuario") id_usuario: Long, @Body libreriaRequest: LibreriaRequest): Response<Libreria>

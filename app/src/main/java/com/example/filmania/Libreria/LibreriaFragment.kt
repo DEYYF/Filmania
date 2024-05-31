@@ -15,6 +15,7 @@ import com.example.filmania.Libreria.adapter.LibreriaAdapter
 import com.example.filmania.Libreria_Contenido.Contenido_LibreriaFragment
 import com.example.filmania.R
 import com.example.filmania.Retrofit.Librerias.LibreriaService
+import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.*
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.DialogAddContentBinding
@@ -173,6 +174,10 @@ class LibreriaFragment : Fragment(), OnClickListener {
 
     override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
         // Implementar funcionalidad
+    }
+
+    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
+        TODO("Not yet implemented")
     }
 
     override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {

@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.FilmaniaApplication
 import com.example.filmania.Retrofit.Noticias.NoticiasService
+import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -140,6 +141,10 @@ class DetalleFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
         TODO("Not yet implemented")
     }
 

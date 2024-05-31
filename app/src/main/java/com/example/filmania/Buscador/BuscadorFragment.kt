@@ -10,11 +10,15 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmania.Añadir_Libreria.Add_Media_LibreriaFragment
 import com.example.filmania.Buscador.adapter.BuscadorAdapter
 import com.example.filmania.FilmaniaApplication
+import com.example.filmania.Preview.PreviewFragment
+import com.example.filmania.Preview.Preview_Serie_Fragment
 import com.example.filmania.R
 import com.example.filmania.Retrofit.Busqueda.BusquedaService
 import com.example.filmania.Retrofit.Librerias.LibreriaService
+import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -120,6 +124,28 @@ class BuscadorFragment : Fragment(), OnClickListener {
         return sharedPref.getInt("userId", 0).toLong()
     }
 
+    private fun guardarBusquedaId(id: Long){
+        val sharedPref = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putLong("busquedaId", id)
+        editor.apply()
+    }
+
+
+    private fun saveserieid(serieId: Long){
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putLong("serieId", serieId)
+        editor.apply()
+    }
+
+    private fun savePeliid(id: Long) {
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putLong("peliId", id)
+        editor.apply()
+    }
+
     private fun addFavoritoToast(){
         Toast.makeText(requireContext(), "Añadido a favoritos", Toast.LENGTH_SHORT).show()
     }
@@ -162,11 +188,34 @@ class BuscadorFragment : Fragment(), OnClickListener {
 
 
     override fun onClickBusqueda(busqueda: Busqueda) {
-        TODO("Not yet implemented")
+        if (busqueda.Tipo == "Película"){
+            savePeliid(busqueda.id)
+            val fragment = PreviewFragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.hostFragment, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+
+        }else if (busqueda.Tipo == "Serie"){
+            saveserieid(busqueda.id)
+            val fragment = Preview_Serie_Fragment()
+            val transaction = requireActivity().supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.hostFragment, fragment)
+            transaction.addToBackStack(null)
+            transaction.commit()
+        }
+        
+
+
     }
 
     override fun onClickBusquedaAdd(busqueda: Busqueda) {
-
+        guardarBusquedaId(busqueda.id)
+        val fragment = Add_Media_LibreriaFragment()
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.hostFragment, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
     override fun onClickBusquedafav(busqueda: Busqueda) {
@@ -190,6 +239,10 @@ class BuscadorFragment : Fragment(), OnClickListener {
                 addVerMasTardeToast()
             }
         }
+    }
+
+    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
+        TODO("Not yet implemented")
     }
 
     override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {

@@ -21,6 +21,7 @@ import com.example.filmania.R
 import com.example.filmania.Registro.Adapter.CountrySpinnerAdapter
 import com.example.filmania.Retrofit.Countrys.CountryService
 import com.example.filmania.Retrofit.Usuario.UsuarioService
+import com.example.filmania.Retrofit.Usuario.Usuario_Update
 import com.example.filmania.common.Entyty.Country
 import com.example.filmania.common.Entyty.Usuario
 import com.example.filmania.common.Entyty.Usuario_nuevo
@@ -164,13 +165,13 @@ class RegistrarseActivity : AppCompatActivity() {
     private fun AddNewUser()
     {
         with(mBinding) {
-            val Username = etUsername.text.toString()
-            val Password = etPassword.text.toString()
-            val Password2 = etPassword2.text.toString()
-            val pais = tiPais.selectedItem.toString()
-            val correo = etemail.text.toString()
-            val genero = etgenero.text.toString()
-            val imagen = etImg.text.toString()
+            val Username = etUsername.text.toString().trim()
+            val Password = etPassword.text.toString().trim()
+            val Password2 = etPassword2.text.toString().trim()
+            val pais = tiPais.selectedItem.toString().trim()
+            val correo = etemail.text.toString().trim()
+            val genero = etgenero.text.toString().trim()
+            val imagen = etImg.text.toString().trim()
 
             RegisterUser(Username, Password,Password2, pais, correo, genero, imagen)
         }

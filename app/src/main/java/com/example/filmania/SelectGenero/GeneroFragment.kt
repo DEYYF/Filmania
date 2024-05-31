@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.filmania.FilmaniaApplication
 import com.example.filmania.MainActivity
 import com.example.filmania.Retrofit.Genero.GeneroService
+import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.SelectGenero.adapter.GeneroAdapter
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
@@ -84,11 +85,11 @@ class GeneroFragment : Fragment(), OnClickListener {
         }
     }
 
-    private fun saveGeneros(context: Context, list: MutableList<Genero>) {
+    private fun saveGeneros(context: Context, list: MutableList<Genero>, user_id: Long ) {
         val editor = context.getSharedPreferences("MySharedPref", Context.MODE_PRIVATE).edit()
-        editor.putLong("id_g", list[0].id)
-        editor.putLong("id_g2", list[1].id)
-        editor.putLong("id_g3", list[2].id)
+        editor.putLong("id_g$user_id", list[0].id)
+        editor.putLong("id_g2$user_id", list[1].id)
+        editor.putLong("id_g3$user_id", list[2].id)
         editor.apply()
     }
 
@@ -99,6 +100,11 @@ class GeneroFragment : Fragment(), OnClickListener {
 
     }
 
+    private fun getUserId(): Long {
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        return sharedPreferences.getInt("userId", 0).toLong()
+    }
+
 
 
 
@@ -107,7 +113,7 @@ class GeneroFragment : Fragment(), OnClickListener {
     override fun onCLickGenero(genero: Genero) {
         generosSelect.add(genero)
         if (generosSelect.size == 3){
-            saveGeneros(requireContext(), generosSelect)
+            saveGeneros(requireContext(), generosSelect,getUserId())
             ChangeActivityMain()
         }
     }
@@ -153,6 +159,10 @@ class GeneroFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
         TODO("Not yet implemented")
     }
 

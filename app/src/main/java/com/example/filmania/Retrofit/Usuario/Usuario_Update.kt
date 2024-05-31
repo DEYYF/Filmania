@@ -1,9 +1,9 @@
-package com.example.filmania.common.Entyty
+package com.example.filmania.Retrofit.Usuario
 
 import com.google.gson.annotations.SerializedName
 
-data class Usuario(
-    @SerializedName("id") val id: Long,
+data class Usuario_Update(
+    @SerializedName("id") val id: Int,
     @SerializedName("usuarios") val usuarios: String,
     @SerializedName("password") val password: String,
     @SerializedName("email") val email: String,
