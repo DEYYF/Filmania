@@ -153,7 +153,7 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
         navigateToGeneroFragment(1)
     }
 
-    override fun onLongClickPelicula(pelicula: Peliculas) {
+    override fun onTrailerClickPelicula(pelicula: Peliculas) {
         TODO("Not yet implemented")
     }
 
@@ -162,7 +162,7 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
         navigateToGeneroFragment(2)
     }
 
-    override fun onLongClickSerie(serie: Series) {
+    override fun onTrailerClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 

@@ -11,6 +11,7 @@ class FilmaniaApplication: Application() {
         lateinit var retrofit: Retrofit
         lateinit var Genero_: String
         lateinit var Anio_: String
+        lateinit var listCines: List<String>
     }
 
     override fun onCreate() {
@@ -23,5 +24,8 @@ class FilmaniaApplication: Application() {
 
         Genero_ = ""
         Anio_ = ""
+        listCines = listOf(
+            "https://cinesmn4.com/tarifa.php", "https://www.cinesur.com/", "https://www.cinesa.es/", "https://www.yelmocines.es/", "https://www.kinepolis.es/", "https://cinesmn4.com/tarifa.php", "https://cinesmn4.com/tarifa.php", "https://cinesmn4.com/tarifa.php","https://www.yelmocines.es/", "https://www.yelmocines.es/"
+        )
     }
 }

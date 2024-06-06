@@ -6,13 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/grey"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/iv_perfil"
+                android:src="@drawable/ic_account_circle_24"
+                app:civ_border_color="@color/black_d"
+                app:civ_border_width="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_margin="@dimen/common_padding_min"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/iv_settings"
+                android:src="@drawable/settings_svgrepo_com"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="@dimen/common_padding_min"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
     <FrameLayout
         android:id="@+id/hostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/cardView"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
         android:background="@color/grey_oscuro"/>
 
@@ -26,7 +66,6 @@
         android:background="@color/grey"
         app:itemTextColor="@color/white"
         app:itemIconTint="@color/white"
-        app:itemRippleColor="@color/yellow"
         app:menu="@menu/bottom_nav_menu"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

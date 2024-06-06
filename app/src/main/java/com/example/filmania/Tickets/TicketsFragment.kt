@@ -38,6 +38,7 @@ import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.FragmentTicketsBinding
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
 
@@ -60,9 +61,7 @@ class TicketsFragment : Fragment(), OnClickListener {
 
         setupRecyclerView()
 
-        mBinding.ivPerfil.setOnClickListener {
-            navigatetoUserFragment()
-        }
+
 
 
     }
@@ -100,7 +99,6 @@ class TicketsFragment : Fragment(), OnClickListener {
 
 
 
-        cargarUsuario()
 
     }
 
@@ -178,16 +176,7 @@ class TicketsFragment : Fragment(), OnClickListener {
         editor.apply()
     }
 
-    private fun navigatetoUserFragment() {
-        val fragmentManager = requireActivity().supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
 
-        val fragment = UserFragment()
-        fragmentTransaction.add(android.R.id.content, fragment)
-
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
     private fun navigateToGeneroFragment(int: Int) {
         val fragmentManager = requireActivity().supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -213,19 +202,7 @@ class TicketsFragment : Fragment(), OnClickListener {
         return mutableListOf(generoId, generoId2, generoId3)
     }
 
-    private fun cargarUsuario() {
-        val usuarioService = FilmaniaApplication.retrofit.create(UsuarioService::class.java)
 
-        lifecycleScope.launch {
-            try {
-                val user = usuarioService.getUser(getUserId())
-                val usuario = user.body()
-                Glide.with(requireContext()).load(usuario?.imagen).into(mBinding.ivPerfil)
-            }catch (e: Exception){
-                Log.e("TicketsFragment", e.message.toString())
-            }
-        }
-    }
 
 
 
@@ -253,9 +230,10 @@ class TicketsFragment : Fragment(), OnClickListener {
         }
     }
 
-    override fun onLongClickPelicula(pelicula: Peliculas) {
+    override fun onTrailerClickPelicula(pelicula: Peliculas) {
         TODO("Not yet implemented")
     }
+
 
     override fun onClickSerie(serie: Series) {
         saveserieid(serie.id)
@@ -278,7 +256,7 @@ class TicketsFragment : Fragment(), OnClickListener {
         }
     }
 
-    override fun onLongClickSerie(serie: Series) {
+    override fun onTrailerClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 

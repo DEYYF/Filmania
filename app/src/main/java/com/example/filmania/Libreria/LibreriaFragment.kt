@@ -118,6 +118,29 @@ class LibreriaFragment : Fragment(), OnClickListener {
         editor.apply()
     }
 
+    private fun showDeleteLibreriaDialog(id: Long) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Borrar Libreria")
+            .setMessage(R.string.Delete_dialog)
+            .setPositiveButton("Confirmar") { dialog, _ ->
+                val libreriaService = FilmaniaApplication.retrofit.create(LibreriaService::class.java)
+
+                lifecycleScope.launch {
+                    val response = libreriaService.delLibreria(id)
+                    if (response.isSuccessful) {
+                        Toast.makeText(requireContext(), "Libreria eliminada", Toast.LENGTH_SHORT).show()
+                        cargarLibreria()
+                    }
+                }
+
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
     override fun onCLickGenero(genero: Genero) {
         // Implementar funcionalidad
     }
@@ -126,16 +149,16 @@ class LibreriaFragment : Fragment(), OnClickListener {
         // Implementar funcionalidad
     }
 
-    override fun onLongClickPelicula(pelicula: Peliculas) {
-        // Implementar funcionalidad
+    override fun onTrailerClickPelicula(pelicula: Peliculas) {
+        TODO("Not yet implemented")
     }
 
     override fun onClickSerie(serie: Series) {
         // Implementar funcionalidad
     }
 
-    override fun onLongClickSerie(serie: Series) {
-        // Implementar funcionalidad
+    override fun onTrailerClickSerie(serie: Series) {
+        TODO("Not yet implemented")
     }
 
     override fun onClickNoticia(noticias: Noticias) {
@@ -148,16 +171,8 @@ class LibreriaFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickLibreriaDelete(Libreria: Libreria) {
+        showDeleteLibreriaDialog(Libreria.id)
 
-        val libreriaService = FilmaniaApplication.retrofit.create(LibreriaService::class.java)
-
-        lifecycleScope.launch {
-            val response = libreriaService.delLibreria(Libreria.id)
-            if (response.isSuccessful) {
-                Toast.makeText(requireContext(), "Libreria eliminada", Toast.LENGTH_SHORT).show()
-                cargarLibreria()
-            }
-        }
     }
 
     override fun onClickBusqueda(busqueda: Busqueda) {

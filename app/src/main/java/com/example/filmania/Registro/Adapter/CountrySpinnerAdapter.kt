@@ -16,6 +16,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Country
+import com.squareup.picasso.Picasso
 import java.net.URL
 
 class CountrySpinnerAdapter(context: Context, countries: List<Country>) :
@@ -38,6 +39,7 @@ class CountrySpinnerAdapter(context: Context, countries: List<Country>) :
         val countryNameTextView = view.findViewById<TextView>(R.id.countryNameTextView)
 
         countryNameTextView.text = country?.name
+
 
 
 

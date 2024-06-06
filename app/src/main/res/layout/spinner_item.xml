@@ -7,7 +7,6 @@
     android:layout_margin="8dp"
     >
 
-
     <TextView
         android:id="@+id/countryNameTextView"
         android:layout_width="wrap_content"

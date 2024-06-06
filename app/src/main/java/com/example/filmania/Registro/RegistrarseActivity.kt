@@ -27,6 +27,7 @@ import com.example.filmania.common.Entyty.Usuario
 import com.example.filmania.common.Entyty.Usuario_nuevo
 import com.example.filmania.common.utils.Constantes
 import com.example.filmania.databinding.ActivityRegistrarseBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -155,11 +156,7 @@ class RegistrarseActivity : AppCompatActivity() {
 
     private fun cargarImagen(img_perfil: String)
     {
-        Glide.with(this)
-            .load(img_perfil)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .centerCrop()
-            .into(mBinding.ivImg)
+        Picasso.get().load(img_perfil).into(mBinding.ivImg)
     }
 
     private fun AddNewUser()

@@ -1,17 +1,24 @@
 package com.example.filmania
 
+import UserFragment
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import com.example.filmania.Buscador.BuscadorFragment
 import com.example.filmania.Libreria.LibreriaFragment
 import com.example.filmania.Noticia.NoticiasFragment
 import com.example.filmania.Peliculasyseries.PeliculasySeriesFragment
+import com.example.filmania.Retrofit.Usuario.UsuarioService
 import com.example.filmania.Tickets.TicketsFragment
 import com.example.filmania.databinding.ActivityMain2Binding
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +36,11 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMain2Binding.inflate(layoutInflater)
         setContentView(mBinding.root)
         setupBottomNav()
+        cargarUsuario()
+
+        mBinding.ivSettings.setOnClickListener {
+            navigatetoUserFragment()
+        }
 
     }
 
@@ -101,6 +113,41 @@ class MainActivity : AppCompatActivity() {
 
 
 
+    }
+
+    private fun cargarUsuario() {
+        val usuarioService = FilmaniaApplication.retrofit.create(UsuarioService::class.java)
+
+        lifecycleScope.launch {
+            try {
+                val user = usuarioService.getUser(getUserId())
+                val usuario = user.body()
+                if (usuario?.imagen.toString().contains(".jpg") || usuario?.imagen.toString().contains(".png") || usuario?.imagen.toString().contains(".jpeg")
+                    || usuario?.imagen.toString().contains(".webp") || usuario?.imagen.toString().contains(".gif") || usuario?.imagen.toString().contains(".bmp")) {
+                    Picasso.get().load(usuario?.imagen).into(mBinding.ivPerfil)
+                } else {
+                    Picasso.get().load(R.drawable.ic_account_circle_24).into(mBinding.ivPerfil)
+                }
+            }catch (e: Exception){
+                Log.e("TicketsFragment", e.message.toString())
+            }
+        }
+    }
+
+    private fun getUserId(): Long {
+        val sharedPreferences = getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
+        return sharedPreferences.getInt("userId", 0).toLong()
+    }
+
+    private fun navigatetoUserFragment() {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        val fragment = UserFragment()
+        fragmentTransaction.add(android.R.id.content, fragment)
+
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
 }

@@ -97,17 +97,19 @@ class Add_Media_LibreriaFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickPelicula(pelicula: Peliculas) {
+    override fun onTrailerClickPelicula(pelicula: Peliculas) {
         TODO("Not yet implemented")
     }
+
 
     override fun onClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickSerie(serie: Series) {
+    override fun onTrailerClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
+
 
     override fun onClickNoticia(noticias: Noticias) {
         TODO("Not yet implemented")

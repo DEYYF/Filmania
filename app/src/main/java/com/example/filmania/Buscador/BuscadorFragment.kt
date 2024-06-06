@@ -2,6 +2,7 @@ package com.example.filmania.Buscador
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.example.filmania.R
 import com.example.filmania.Retrofit.Busqueda.BusquedaService
 import com.example.filmania.Retrofit.Librerias.LibreriaService
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
+import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormenteService
 import com.example.filmania.common.Entyty.Busqueda
 import com.example.filmania.common.Entyty.Genero
 import com.example.filmania.common.Entyty.Libreria
@@ -162,17 +164,19 @@ class BuscadorFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickPelicula(pelicula: Peliculas) {
+    override fun onTrailerClickPelicula(pelicula: Peliculas) {
         TODO("Not yet implemented")
     }
+
 
     override fun onClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickSerie(serie: Series) {
+    override fun onTrailerClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
+
 
     override fun onClickNoticia(noticias: Noticias) {
         TODO("Not yet implemented")
@@ -189,14 +193,37 @@ class BuscadorFragment : Fragment(), OnClickListener {
 
     override fun onClickBusqueda(busqueda: Busqueda) {
         if (busqueda.Tipo == "Película"){
+
+            val vistoAnteriormenteService = FilmaniaApplication.retrofit.create(VistoAnteriormenteService::class.java)
+            lifecycleScope.launch{
+                val response = vistoAnteriormenteService.createVistoAnteriormente(getUserId(), busqueda.id)
+                if(response.isSuccessful){
+                    Log.e("VistoAnteriormente", "VistoAnteriormente creado")
+                }else{
+                    Log.e("VistoAnteriormente", "Error al crear VistoAnteriormente")
+                }
+            }
             savePeliid(busqueda.id)
-            val fragment = PreviewFragment()
+            val fragment = Preview_Serie_Fragment()
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.hostFragment, fragment)
             transaction.addToBackStack(null)
             transaction.commit()
 
         }else if (busqueda.Tipo == "Serie"){
+
+
+            val vistoAnteriormenteService = FilmaniaApplication.retrofit.create(VistoAnteriormenteService::class.java)
+            lifecycleScope.launch {
+                val response =
+                    vistoAnteriormenteService.createVistoAnteriormente(getUserId(), busqueda.id)
+                if (response.isSuccessful) {
+                    Log.e("VistoAnteriormente", "VistoAnteriormente creado")
+                } else {
+                    Log.e("VistoAnteriormente", "Error al crear VistoAnteriormente")
+
+                }
+            }
             saveserieid(busqueda.id)
             val fragment = Preview_Serie_Fragment()
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
@@ -204,8 +231,6 @@ class BuscadorFragment : Fragment(), OnClickListener {
             transaction.addToBackStack(null)
             transaction.commit()
         }
-        
-
 
     }
 

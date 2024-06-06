@@ -13,7 +13,7 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="100dp"
+            android:layout_width="@dimen/_80dp"
             android:layout_height="match_parent"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"

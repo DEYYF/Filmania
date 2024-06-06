@@ -90,7 +90,7 @@ class Contenido_LibreriaFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickPelicula(pelicula: Peliculas) {
+    override fun onTrailerClickPelicula(pelicula: Peliculas) {
         TODO("Not yet implemented")
     }
 
@@ -98,7 +98,7 @@ class Contenido_LibreriaFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickSerie(serie: Series) {
+    override fun onTrailerClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 

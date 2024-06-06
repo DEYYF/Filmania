@@ -21,7 +21,7 @@ class PreviewAdapter(private val listener: OnClickListener, private var pelicula
             with(mBinding) {
                 pelicula?.let { p ->
                     btnPlay.setOnClickListener { listener.onClickPelicula(p) }
-                    btnTrailer.setOnClickListener { listener.onLongClickPelicula(p) }
+                    btnTrailer.setOnClickListener { listener.onTrailerClickPelicula(p) }
                 }
             }
         }

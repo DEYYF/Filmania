@@ -34,6 +34,7 @@ import com.example.filmania.common.Entyty.contenido_libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.DialogChangePasswordBinding
 import com.example.filmania.databinding.FragmentUserBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
 class UserFragment : Fragment(), OnClickListener{
@@ -70,7 +71,7 @@ class UserFragment : Fragment(), OnClickListener{
         }
 
         mBinding.btnDelete.setOnClickListener {
-            borrarUsuario()
+            showDeleteUserDialog()
         }
 
         mBinding.btnLogout.setOnClickListener {
@@ -164,7 +165,12 @@ class UserFragment : Fragment(), OnClickListener{
                 mUser = response.body()!!
                 mBinding.etUsername.setText(mUser.usuarios)
                 mBinding.etEmail.setText(mUser.email)
-                Glide.with(requireContext()).load(mUser.imagen).into(mBinding.ivPerfil)
+                if (mUser.imagen.contains(".jpg") || mUser.imagen.contains(".png") || mUser.imagen.contains(".jpeg")
+                    || mUser.imagen.contains(".gif") || mUser.imagen.contains(".bmp") || mUser.imagen.contains(".webp")) {
+                    Picasso.get().load(mUser.imagen).into(mBinding.ivPerfil)
+                } else {
+                    Picasso.get().load(R.drawable.ic_account_circle_24).into(mBinding.ivPerfil)
+                }
             } catch (e: Exception) {
                 Log.e("UserFragment", e.message.toString())
             }
@@ -196,6 +202,20 @@ class UserFragment : Fragment(), OnClickListener{
         return sharedPreferences.getInt("userId", 0).toLong()
     }
 
+    private fun showDeleteUserDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Borrar Usuario")
+            .setMessage(R.string.Delete_dialog)
+            .setPositiveButton("Confirmar") { dialog, _ ->
+                borrarUsuario()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
     private fun showChangePasswordDialog() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_change_password, null)
         binding = DialogChangePasswordBinding.bind(dialogView)
@@ -215,8 +235,7 @@ class UserFragment : Fragment(), OnClickListener{
                         val response = usuarioService.getUser(getUserId())
                         val user = response.body()!!
 
-                        if (oldPassword == user.password) {
-                            if (newPassword1 == newPassword2){
+                        if (oldPassword == user.password && newPassword1 == newPassword2) {
                                 val updatedUser = Usuario_config(
                                     mBinding.etUsername.text.toString(),
                                     newPassword1,
@@ -232,14 +251,10 @@ class UserFragment : Fragment(), OnClickListener{
                                 }else{
                                     Toast.makeText(requireContext(), "Error al cambiar la contraseña", Toast.LENGTH_SHORT).show()
                                 }
-                            }else{
-                                binding.tilPassword2.error = "Las contraseñas no coinciden"
-                                binding.tilPassword1.error = "Las contraseñas no coinciden"
-                                Toast.makeText(requireContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
-                            }
+
 
                         } else {
-                            binding.tilPasswordantiguo.error = "Contraseña incorrecta"
+                            Toast.makeText(requireContext(), "Contraseña incorrecta", Toast.LENGTH_SHORT).show()
                         }
                     }
 
@@ -267,13 +282,6 @@ class UserFragment : Fragment(), OnClickListener{
             binding.tilPassword2.error = "Repite la nueva contraseña"
             return false
         }
-
-        if (newPassword1 != newPassword2) {
-            binding.tilPassword2.error = "Las contraseñas no coinciden"
-            return false
-        }
-
-        // Validación adicional según tus requisitos
 
         return true
     }
@@ -307,17 +315,19 @@ class UserFragment : Fragment(), OnClickListener{
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickPelicula(pelicula: Peliculas) {
+    override fun onTrailerClickPelicula(pelicula: Peliculas) {
         TODO("Not yet implemented")
     }
+
 
     override fun onClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickSerie(serie: Series) {
+    override fun onTrailerClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
+
 
     override fun onClickNoticia(noticias: Noticias) {
         TODO("Not yet implemented")

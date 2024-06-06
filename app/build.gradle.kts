@@ -79,6 +79,9 @@ dependencies {
     // CircleImageView
     implementation ("de.hdodenhof:circleimageview:3.1.0")
 
+    // Picasso
+    implementation("com.squareup.picasso:picasso:2.71828")
+
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -15,6 +15,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <!-- Vista para la capa negra semitransparente -->
+    <View
+        android:id="@+id/black_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"/>
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_nombre"
         android:layout_width="wrap_content"
@@ -84,11 +91,5 @@
         app:layout_constraintTop_toBottomOf="@id/tv_description"
         app:layout_constraintStart_toEndOf="@id/btn_play"
         android:layout_margin="@dimen/common_padding_default"/>
-
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -101,18 +101,23 @@ class PreviewFragment : Fragment(), OnClickListener {
     }
 
     override fun onClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
+        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
+        val url = FilmaniaApplication.listCines.random()
+        intent.data = android.net.Uri.parse(url)
+        startActivity(intent)
     }
 
-    override fun onLongClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
+    override fun onTrailerClickPelicula(pelicula: Peliculas) {
+        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
+        intent.data = android.net.Uri.parse(pelicula.Trailer)
+        startActivity(intent)
     }
 
     override fun onClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 
-    override fun onLongClickSerie(serie: Series) {
+    override fun onTrailerClickSerie(serie: Series) {
         TODO("Not yet implemented")
     }
 

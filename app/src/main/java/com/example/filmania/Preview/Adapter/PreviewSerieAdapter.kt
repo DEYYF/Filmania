@@ -21,7 +21,7 @@ class PreviewSerieAdapter(private val listener: OnClickListener, private var ser
             with(mBinding) {
                 serie?.let { s ->
                     btnPlay.setOnClickListener { listener.onClickSerie(s) }
-                    btnTrailer.setOnClickListener { listener.onLongClickSerie(s) }
+                    btnTrailer.setOnClickListener { listener.onTrailerClickSerie(s) }
                 }
             }
         }

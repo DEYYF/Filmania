@@ -55,4 +55,5 @@
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
     <string name="librerias">Librerias</string>
     <string name="repite_la_nueva_contrase_a">Repite la nueva contraseña</string>
+    <string name="Delete_dialog">¿Estás seguro de que quieres eliminarlo?</string>
 </resources>

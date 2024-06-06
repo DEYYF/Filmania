@@ -13,6 +13,7 @@ import com.example.filmania.R
 import com.example.filmania.common.Entyty.Libreria
 import com.example.filmania.common.utils.OnClickListener
 import com.example.filmania.databinding.ItemAccountBinding
+import com.squareup.picasso.Picasso
 
 class useradapter(private var listener: OnClickListener) : ListAdapter<Libreria, RecyclerView.ViewHolder>(UserDiffCallback()){
 
@@ -43,11 +44,7 @@ class useradapter(private var listener: OnClickListener) : ListAdapter<Libreria,
             setListener(media)
             with(mBinding){
                 tvTitle.text = media.titulo
-                Glide.with(context)
-                    .load(media.imagen)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .centerCrop()
-                    .into(imageView)
+                Picasso.get().load(media.imagen).into(imageView)
             }
         }
     }

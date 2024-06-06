@@ -23,7 +23,7 @@
         android:background="#00000000"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:backgroundTint="@color/white"/>
+        android:tint="@color/white"/>
 
 
 

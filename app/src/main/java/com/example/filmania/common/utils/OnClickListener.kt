@@ -18,11 +18,11 @@ interface OnClickListener {
 
     fun onClickPelicula(pelicula: Peliculas)
 
-    fun onLongClickPelicula(pelicula: Peliculas)
+    fun onTrailerClickPelicula(pelicula: Peliculas)
 
     fun onClickSerie(serie: Series)
 
-    fun onLongClickSerie(serie: Series)
+    fun onTrailerClickSerie(serie: Series)
 
     fun onClickNoticia(noticias: Noticias)
 
