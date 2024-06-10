@@ -159,8 +159,7 @@ class RegistrarseActivity : AppCompatActivity() {
         Picasso.get().load(img_perfil).into(mBinding.ivImg)
     }
 
-    private fun AddNewUser()
-    {
+    private fun AddNewUser() {
         with(mBinding) {
             val Username = etUsername.text.toString().trim()
             val Password = etPassword.text.toString().trim()
@@ -170,10 +169,14 @@ class RegistrarseActivity : AppCompatActivity() {
             val genero = etgenero.text.toString().trim()
             val imagen = etImg.text.toString().trim()
 
-            RegisterUser(Username, Password,Password2, pais, correo, genero, imagen)
+            if (isValidEmail(correo)) {
+                RegisterUser(Username, Password, Password2, pais, correo, genero, imagen)
+            } else {
+                Toast.makeText(this@RegistrarseActivity, "Formato de correo electrónico inválido", Toast.LENGTH_SHORT).show()
+            }
         }
-
     }
+
 
 
 
@@ -225,6 +228,12 @@ class RegistrarseActivity : AppCompatActivity() {
 
 
     }
+
+    private fun isValidEmail(email: String): Boolean {
+        val emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+        return email.matches(emailPattern.toRegex())
+    }
+
 
 
 }

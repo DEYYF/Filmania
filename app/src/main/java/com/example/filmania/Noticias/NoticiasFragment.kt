@@ -98,6 +98,7 @@ class NoticiasFragment : Fragment(), OnClickListener {
                 if (response.isSuccessful) {
                     val noticias = response.body()
                     noticiasAdapter.submitList(noticias)
+                    noticiasAdapter.notifyDataSetChanged()
                 }else{
                     Toast.makeText(requireContext(), "No hay noticias disponibles", Toast.LENGTH_SHORT).show()
                 }
