@@ -131,6 +131,7 @@ class TicketsFragment : Fragment(), OnClickListener {
                 val vistoAnteriormentes = vistoAnteriormente.body()
                 val mediaAdapter = mBinding.rcVistoAnteriormente.adapter as VistoAnteriormenteAdapter
                 mediaAdapter.submitList(vistoAnteriormentes)
+                mediaAdapter.notifyDataSetChanged()
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "No hay peliculas disponibles", Toast.LENGTH_SHORT)
                     .show()
@@ -212,7 +213,6 @@ class TicketsFragment : Fragment(), OnClickListener {
 
     override fun onClickPelicula(pelicula: Peliculas) {
         savePeliid(pelicula.id)
-        navigateToGeneroFragment(1)
         val VistoAnteriormenteService =
             FilmaniaApplication.retrofit.create(VistoAnteriormenteService::class.java)
 
@@ -222,12 +222,15 @@ class TicketsFragment : Fragment(), OnClickListener {
                 val vistoAnteriormentes = vistoAnteriormente.body()
                 if (vistoAnteriormentes != null) {
                     cargarvistoanteriormente()
+                    val mediaAdapter = mBinding.rcVistoAnteriormente.adapter as VistoAnteriormenteAdapter
+                    mediaAdapter.notifyDataSetChanged()
                 }
-                cargarvistoanteriormente()
+
             } catch (e: Exception) {
                 Log.e("TicketsFragment", e.message.toString())
             }
         }
+        navigateToGeneroFragment(1)
     }
 
     override fun onTrailerClickPelicula(pelicula: Peliculas) {
@@ -237,7 +240,7 @@ class TicketsFragment : Fragment(), OnClickListener {
 
     override fun onClickSerie(serie: Series) {
         saveserieid(serie.id)
-        navigateToGeneroFragment(2)
+
 
         val VistoAnteriormenteService =
             FilmaniaApplication.retrofit.create(VistoAnteriormenteService::class.java)
@@ -248,12 +251,16 @@ class TicketsFragment : Fragment(), OnClickListener {
                 val vistoAnteriormentes = vistoAnteriormente.body()
                 if (vistoAnteriormentes != null) {
                     cargarvistoanteriormente()
+                    val mediaAdapter = mBinding.rcVistoAnteriormente.adapter as VistoAnteriormenteAdapter
+                    mediaAdapter.notifyDataSetChanged()
                 }
                 cargarvistoanteriormente()
             } catch (e: Exception) {
                 Log.e("TicketsFragment", e.message.toString())
             }
         }
+
+        navigateToGeneroFragment(2)
     }
 
     override fun onTrailerClickSerie(serie: Series) {
