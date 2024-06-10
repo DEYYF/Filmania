@@ -3,6 +3,7 @@ package com.example.filmania.Libreria
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -56,7 +57,7 @@ class LibreriaFragment : Fragment(), OnClickListener {
                 val titulo = mBindingDialog.editText1.text.toString()
                 val imagen = mBindingDialog.editText2.text.toString()
 
-                if (titulo.isNotEmpty() && imagen.isNotEmpty()) {
+                if (titulo.isNotEmpty() && imagen.isNotEmpty() && isValidImageUrl(imagen)) {
                     val libreriaService = FilmaniaApplication.retrofit.create(LibreriaService::class.java)
 
                     lifecycleScope.launch {
@@ -139,6 +140,10 @@ class LibreriaFragment : Fragment(), OnClickListener {
             }
             .create()
             .show()
+    }
+
+    private fun isValidImageUrl(url: String): Boolean {
+        return Patterns.WEB_URL.matcher(url).matches() && url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".png") || url.endsWith(".gif") || url.endsWith(".bmp") || url.endsWith(".webp") || url.endsWith(".svg")
     }
 
     override fun onCLickGenero(genero: Genero) {

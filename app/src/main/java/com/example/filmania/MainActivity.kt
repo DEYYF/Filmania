@@ -122,9 +122,8 @@ class MainActivity : AppCompatActivity() {
             try {
                 val user = usuarioService.getUser(getUserId())
                 val usuario = user.body()
-                if (usuario?.imagen.toString().contains(".jpg") || usuario?.imagen.toString().contains(".png") || usuario?.imagen.toString().contains(".jpeg")
-                    || usuario?.imagen.toString().contains(".webp") || usuario?.imagen.toString().contains(".gif") || usuario?.imagen.toString().contains(".bmp")) {
-                    Picasso.get().load(usuario?.imagen).into(mBinding.ivPerfil)
+                if (usuario != null) {
+                    Picasso.get().load(usuario.imagen).into(mBinding.ivPerfil)
                 } else {
                     Picasso.get().load(R.drawable.ic_account_circle_24).into(mBinding.ivPerfil)
                 }

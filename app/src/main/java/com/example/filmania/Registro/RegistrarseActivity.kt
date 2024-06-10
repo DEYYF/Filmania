@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.Patterns
 import android.view.KeyEvent
 import android.view.View
 import android.widget.AdapterView
@@ -169,13 +170,18 @@ class RegistrarseActivity : AppCompatActivity() {
             val genero = etgenero.text.toString().trim()
             val imagen = etImg.text.toString().trim()
 
-            if (isValidEmail(correo)) {
-                RegisterUser(Username, Password, Password2, pais, correo, genero, imagen)
+            if (isValidImageUrl(imagen)) {
+                if (isValidEmail(correo)) {
+                    RegisterUser(Username, Password, Password2, pais, correo, genero, imagen)
+                } else {
+                    Toast.makeText(this@RegistrarseActivity, "Formato de correo electrónico inválido", Toast.LENGTH_SHORT).show()
+                }
             } else {
-                Toast.makeText(this@RegistrarseActivity, "Formato de correo electrónico inválido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@RegistrarseActivity, "URL de imagen inválida", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
 
 
 
@@ -235,5 +241,9 @@ class RegistrarseActivity : AppCompatActivity() {
     }
 
 
+
+    private fun isValidImageUrl(url: String): Boolean {
+        return Patterns.WEB_URL.matcher(url).matches() && url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".png") || url.endsWith(".gif") || url.endsWith(".bmp") || url.endsWith(".webp") || url.endsWith(".svg")
+    }
 
 }
