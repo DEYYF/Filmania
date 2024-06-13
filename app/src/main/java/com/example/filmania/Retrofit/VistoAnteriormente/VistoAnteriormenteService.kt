@@ -12,5 +12,5 @@ interface VistoAnteriormenteService {
     suspend fun getVistoAnteriormente(@Query("id_user") id_user: Long): Response<List<VistoAnteriormente>>
 
     @POST(Constantes.BASE_URL + Constantes.VistoAnteriormeteCreate)
-    suspend fun createVistoAnteriormente(@Query("id_user") id_user: Long, @Query("id_media") id_media: Long): Response<VistoAnteriormente>
+    suspend fun createVistoAnteriormente(@Query("id_user") id_user: Long, @Query("id_media") id_media: Long): Response<MutableList<VistoAnteriormente>>
 }

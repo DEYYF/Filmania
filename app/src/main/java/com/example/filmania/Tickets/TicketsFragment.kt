@@ -196,8 +196,9 @@ class TicketsFragment : Fragment(), OnClickListener {
             try {
                 val vistoAnteriormente = VistoAnteriormenteService.createVistoAnteriormente(getUserId(), pelicula.id)
                 val vistoAnteriormentes = vistoAnteriormente.body()
-                if (vistoAnteriormentes != null) {
-                    cargarvistoanteriormente()
+                if (vistoAnteriormente.isSuccessful) {
+                    val mediaAdapter = mBinding.rcVistoAnteriormente.adapter as VistoAnteriormenteAdapter
+                    mediaAdapter.submitList(vistoAnteriormentes)
                 }
 
             } catch (e: Exception) {

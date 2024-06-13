@@ -233,7 +233,7 @@ class UserFragment : Fragment(), OnClickListenerLibreria {
                         val response = usuarioService.getUser(getUserId())
                         val user = response.body()!!
 
-                        if (oldPassword == user.password && newPassword1 == newPassword2) {
+                        if (oldPassword == user.password && newPassword1 == newPassword2 && isValidPassword(newPassword1)) {
                                 val updatedUser = Usuario_config(
                                     mBinding.etUsername.text.toString(),
                                     newPassword1,
@@ -303,6 +303,11 @@ class UserFragment : Fragment(), OnClickListenerLibreria {
     private fun goBack() {
         val fragmentManager = requireActivity().supportFragmentManager
         fragmentManager.popBackStack()
+    }
+
+    private fun isValidPassword(password: String): Boolean {
+        val passwordPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}$"
+        return password.matches(passwordPattern.toRegex())
     }
 
 
