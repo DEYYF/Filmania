@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.ItemContenidoBinding
 
-class ContenidoLibreriaAdapter(private var listener: OnClickListener): ListAdapter<contenido_libreria, RecyclerView.ViewHolder>(ContenidoLibreriaDiffCallback()){
+class ContenidoLibreriaAdapter(): ListAdapter<contenido_libreria, RecyclerView.ViewHolder>(ContenidoLibreriaDiffCallback()){
 
     private lateinit var context: Context
 
@@ -22,7 +22,7 @@ class ContenidoLibreriaAdapter(private var listener: OnClickListener): ListAdapt
 
         fun setListener(contenido_libreria: contenido_libreria){
             with(mBinding){
-                 cvContenido.setOnClickListener{ listener.onClickcontenido_libreria(contenido_libreria) }
+
             }
         }
     }

@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Series
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.ItemPeliYSerieBinding
 
 class SeriesAdapter(private var listener: OnClickListener) : ListAdapter<Series, RecyclerView.ViewHolder>(SeriesDiffCallback())

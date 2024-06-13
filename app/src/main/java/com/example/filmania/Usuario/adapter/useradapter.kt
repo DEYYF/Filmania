@@ -7,15 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Libreria
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListenerLibreria
 import com.example.filmania.databinding.ItemAccountBinding
 import com.squareup.picasso.Picasso
 
-class useradapter(private var listener: OnClickListener) : ListAdapter<Libreria, RecyclerView.ViewHolder>(UserDiffCallback()){
+class useradapter(private var listener: OnClickListenerLibreria) : ListAdapter<Libreria, RecyclerView.ViewHolder>(UserDiffCallback()){
 
     private lateinit var context: Context
 
@@ -24,7 +23,7 @@ class useradapter(private var listener: OnClickListener) : ListAdapter<Libreria,
 
         fun setListener(libreria: Libreria){
             with(mBinding){
-                
+                cardView.setOnClickListener{ listener.onClickLibreria(libreria)}
             }
         }
     }

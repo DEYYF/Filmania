@@ -19,22 +19,14 @@ import com.example.filmania.Preview.Preview_Serie_Fragment
 import com.example.filmania.R
 import com.example.filmania.Retrofit.Busqueda.BusquedaService
 import com.example.filmania.Retrofit.Librerias.LibreriaService
-import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormenteService
 import com.example.filmania.common.Entyty.Busqueda
-import com.example.filmania.common.Entyty.Genero
-import com.example.filmania.common.Entyty.Libreria
-import com.example.filmania.common.Entyty.Media
-import com.example.filmania.common.Entyty.Noticias
-import com.example.filmania.common.Entyty.Peliculas
-import com.example.filmania.common.Entyty.Series
-import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListenerBusqueda
 import com.example.filmania.databinding.FragmentBuscadorBinding
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class BuscadorFragment : Fragment(), OnClickListener {
+class BuscadorFragment : Fragment(), OnClickListenerBusqueda {
 
     private lateinit var mBinding: FragmentBuscadorBinding
 
@@ -156,62 +148,31 @@ class BuscadorFragment : Fragment(), OnClickListener {
         Toast.makeText(requireContext(), "Añadido a ver más tarde", Toast.LENGTH_SHORT).show()
     }
 
-    override fun onCLickGenero(genero: Genero) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onTrailerClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun onClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onTrailerClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun onClickNoticia(noticias: Noticias) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreria(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreriaDelete(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
 
     override fun onClickBusqueda(busqueda: Busqueda) {
-        if (busqueda.Tipo == "Película"){
 
+        Log.e("Busqueda", busqueda.toString())
+        if (busqueda.Tipo == "Pelicula"){
+            savePeliid(busqueda.id)
             val vistoAnteriormenteService = FilmaniaApplication.retrofit.create(VistoAnteriormenteService::class.java)
             lifecycleScope.launch{
                 val response = vistoAnteriormenteService.createVistoAnteriormente(getUserId(), busqueda.id)
                 if(response.isSuccessful){
-                    Log.e("VistoAnteriormente", "VistoAnteriormente creado")
+                    Log.e("Pelicula", "VistoAnteriormente creado")
                 }else{
-                    Log.e("VistoAnteriormente", "Error al crear VistoAnteriormente")
+                    Log.e("Pelicula", "Error al crear VistoAnteriormente")
                 }
             }
-            savePeliid(busqueda.id)
-            val fragment = Preview_Serie_Fragment()
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.hostFragment, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+
+            val fragmentManager = requireActivity().supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            val fragment = PreviewFragment()
+            fragmentTransaction.add(android.R.id.content, fragment)
+            fragmentTransaction.addToBackStack(null)
+            fragmentTransaction.commit()
 
         }else if (busqueda.Tipo == "Serie"){
-
+            saveserieid(busqueda.id)
 
             val vistoAnteriormenteService = FilmaniaApplication.retrofit.create(VistoAnteriormenteService::class.java)
             lifecycleScope.launch {
@@ -224,7 +185,7 @@ class BuscadorFragment : Fragment(), OnClickListener {
 
                 }
             }
-            saveserieid(busqueda.id)
+
             val fragment = Preview_Serie_Fragment()
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.hostFragment, fragment)
@@ -264,18 +225,6 @@ class BuscadorFragment : Fragment(), OnClickListener {
                 addVerMasTardeToast()
             }
         }
-    }
-
-    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickMedia(media: Media) {
-        TODO("Not yet implemented")
     }
 
 

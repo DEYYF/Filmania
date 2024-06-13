@@ -11,8 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.Añadir_Libreria.adapter.adapterAdd_Media_Libreria
 import com.example.filmania.FilmaniaApplication
-import com.example.filmania.Libreria.adapter.LibreriaAdapter
-import com.example.filmania.R
 import com.example.filmania.Retrofit.Librerias.LibreriaService
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.Busqueda
@@ -23,11 +21,12 @@ import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListenerLibreria
 import com.example.filmania.databinding.FragmentAddMediaLibreriaBinding
 import kotlinx.coroutines.launch
 
-class Add_Media_LibreriaFragment : Fragment(), OnClickListener {
+class Add_Media_LibreriaFragment : Fragment(), OnClickListenerLibreria {
 
     private lateinit var binding: FragmentAddMediaLibreriaBinding
 
@@ -89,31 +88,7 @@ class Add_Media_LibreriaFragment : Fragment(), OnClickListener {
         fragmentManager.popBackStack()
     }
 
-    override fun onCLickGenero(genero: Genero) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onTrailerClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun onClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onTrailerClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun onClickNoticia(noticias: Noticias) {
-        TODO("Not yet implemented")
-    }
 
     override fun onClickLibreria(Libreria: Libreria) {
         val libreriaService = FilmaniaApplication.retrofit.create(LibreriaService::class.java)
@@ -133,31 +108,5 @@ class Add_Media_LibreriaFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onClickBusqueda(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onClickBusquedaAdd(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedafav(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickMedia(media: Media) {
-        TODO("Not yet implemented")
-    }
 }

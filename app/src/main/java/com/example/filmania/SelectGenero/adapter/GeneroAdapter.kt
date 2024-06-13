@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Genero
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListenerGenero
 import com.example.filmania.databinding.ItemGeneroBinding
 
-class GeneroAdapter(private var listener: OnClickListener): ListAdapter<Genero, RecyclerView.ViewHolder>(
+class GeneroAdapter(private var listener: OnClickListenerGenero): ListAdapter<Genero, RecyclerView.ViewHolder>(
     GeneroDiffCallback()
 ) {
 

@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.FilmaniaApplication
-import com.example.filmania.Preview.Adapter.PreviewAdapter
 import com.example.filmania.Preview.Adapter.PreviewSerieAdapter
 import com.example.filmania.Retrofit.Series.SeriesService
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
@@ -22,7 +21,7 @@ import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.FragmentPreviewSerieBinding
 import kotlinx.coroutines.launch
 
@@ -101,10 +100,6 @@ class Preview_Serie_Fragment : Fragment(), OnClickListener {
 
 
 
-    override fun onCLickGenero(genero: Genero) {
-        TODO("Not yet implemented")
-    }
-
     override fun onClickPelicula(pelicula: Peliculas) {
         TODO("Not yet implemented")
     }
@@ -126,45 +121,8 @@ class Preview_Serie_Fragment : Fragment(), OnClickListener {
         startActivity(intent)
     }
 
-    override fun onClickNoticia(noticias: Noticias) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreria(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreriaDelete(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusqueda(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaAdd(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedafav(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
     override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
         TODO("Not yet implemented")
     }
-
-    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickMedia(media: Media) {
-        TODO("Not yet implemented")
-    }
-
 
 }

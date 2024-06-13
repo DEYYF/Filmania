@@ -1,4 +1,4 @@
-package com.example.filmania.common.utils
+package com.example.filmania.common.utils.Listeners
 
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.Busqueda
@@ -12,10 +12,6 @@ import com.example.filmania.common.Entyty.contenido_libreria
 
 interface OnClickListener {
 
-
-
-    fun onCLickGenero(genero: Genero)
-
     fun onClickPelicula(pelicula: Peliculas)
 
     fun onTrailerClickPelicula(pelicula: Peliculas)
@@ -24,20 +20,6 @@ interface OnClickListener {
 
     fun onTrailerClickSerie(serie: Series)
 
-    fun onClickNoticia(noticias: Noticias)
-
-    fun onClickLibreria(Libreria: Libreria)
-
-    fun onClickLibreriaDelete(Libreria: Libreria)
-
-    fun onClickBusqueda(busqueda: Busqueda)
-    fun onClickBusquedaAdd(busqueda: Busqueda)
-    fun onClickBusquedafav(busqueda: Busqueda)
-    fun onClickBusquedaVerMasTarde(busqueda: Busqueda)
-
     fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente)
 
-    fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria)
-
-    fun onClickMedia(media: Media)
 }

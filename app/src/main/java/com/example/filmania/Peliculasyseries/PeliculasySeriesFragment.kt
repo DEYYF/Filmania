@@ -25,7 +25,7 @@ import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.FragmentPeliculasySeriesBinding
 import kotlinx.coroutines.launch
 
@@ -143,10 +143,6 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
         fragmentTransaction.commit()
     }
 
-    override fun onCLickGenero(genero: Genero) {
-        TODO("Not yet implemented")
-    }
-
 
     override fun onClickPelicula(pelicula: Peliculas) {
         savePeliid(pelicula.id)
@@ -166,44 +162,8 @@ class PeliculasySeriesFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onClickNoticia(noticias: Noticias) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreria(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreriaDelete(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun onClickBusqueda(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaAdd(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedafav(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
 
     override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickMedia(media: Media) {
         TODO("Not yet implemented")
     }
 

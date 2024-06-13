@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Noticias
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListenerNoticias
 import com.example.filmania.databinding.ItemNoticiaBinding
 
-class NoticiasAdapter(private var listener: OnClickListener): ListAdapter<Noticias, RecyclerView.ViewHolder>(NoticiasDiffCallback()){
+class NoticiasAdapter(private var listener: OnClickListenerNoticias): ListAdapter<Noticias, RecyclerView.ViewHolder>(NoticiasDiffCallback()){
 
     private lateinit var context: Context
 

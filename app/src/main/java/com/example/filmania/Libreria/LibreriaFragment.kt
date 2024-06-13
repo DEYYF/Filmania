@@ -18,12 +18,13 @@ import com.example.filmania.R
 import com.example.filmania.Retrofit.Librerias.LibreriaService
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.*
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListenerLibreria
 import com.example.filmania.databinding.DialogAddContentBinding
 import com.example.filmania.databinding.FragmentLibreriaBinding
 import kotlinx.coroutines.launch
 
-class LibreriaFragment : Fragment(), OnClickListener {
+class LibreriaFragment : Fragment(), OnClickListenerLibreria {
 
     private lateinit var mBinding: FragmentLibreriaBinding
 
@@ -57,7 +58,7 @@ class LibreriaFragment : Fragment(), OnClickListener {
                 val titulo = mBindingDialog.editText1.text.toString()
                 val imagen = mBindingDialog.editText2.text.toString()
 
-                if (titulo.isNotEmpty() && imagen.isNotEmpty() && isValidImageUrl(imagen)) {
+                if (titulo.isNotEmpty() && isValidImageUrl(imagen)) {
                     val libreriaService = FilmaniaApplication.retrofit.create(LibreriaService::class.java)
 
                     lifecycleScope.launch {
@@ -76,6 +77,7 @@ class LibreriaFragment : Fragment(), OnClickListener {
 
         dialog.show()
     }
+
 
     private fun getUserId(): Long {
         val sharedPref = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
@@ -146,29 +148,6 @@ class LibreriaFragment : Fragment(), OnClickListener {
         return Patterns.WEB_URL.matcher(url).matches() && url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".png") || url.endsWith(".gif") || url.endsWith(".bmp") || url.endsWith(".webp") || url.endsWith(".svg")
     }
 
-    override fun onCLickGenero(genero: Genero) {
-        // Implementar funcionalidad
-    }
-
-    override fun onClickPelicula(pelicula: Peliculas) {
-        // Implementar funcionalidad
-    }
-
-    override fun onTrailerClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickSerie(serie: Series) {
-        // Implementar funcionalidad
-    }
-
-    override fun onTrailerClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickNoticia(noticias: Noticias) {
-        // Implementar funcionalidad
-    }
 
     override fun onClickLibreria(Libreria: Libreria) {
         savelibreriaid(Libreria.id)
@@ -178,33 +157,5 @@ class LibreriaFragment : Fragment(), OnClickListener {
     override fun onClickLibreriaDelete(Libreria: Libreria) {
         showDeleteLibreriaDialog(Libreria.id)
 
-    }
-
-    override fun onClickBusqueda(busqueda: Busqueda) {
-        // Implementar funcionalidad
-    }
-
-    override fun onClickBusquedaAdd(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedafav(busqueda: Busqueda) {
-        // Implementar funcionalidad
-    }
-
-    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
-        // Implementar funcionalidad
-    }
-
-    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
-        // Implementar funcionalidad
-    }
-
-    override fun onClickMedia(media: Media) {
-        // Implementar funcionalidad
     }
 }

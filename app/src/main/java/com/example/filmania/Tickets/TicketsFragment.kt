@@ -1,6 +1,5 @@
 package com.example.filmania.Tickets
 
-import UserFragment
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -11,34 +10,20 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.example.filmania.FilmaniaApplication
-import com.example.filmania.Libreria_Contenido.Contenido_LibreriaFragment
 import com.example.filmania.Preview.PreviewFragment
 import com.example.filmania.Preview.Preview_Serie_Fragment
-import com.example.filmania.R
 import com.example.filmania.Retrofit.Peliculas.PeliculasService
 import com.example.filmania.Retrofit.Series.SeriesService
-import com.example.filmania.Retrofit.Usuario.UsuarioService
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormenteService
-import com.example.filmania.Tickets.adapter.MediaAdapter
 import com.example.filmania.Tickets.adapter.PeliculasAdapter
 import com.example.filmania.Tickets.adapter.SeriesAdapter
 import com.example.filmania.Tickets.adapter.VistoAnteriormenteAdapter
-import com.example.filmania.common.Entyty.Busqueda
-import com.example.filmania.common.Entyty.Genero
-import com.example.filmania.common.Entyty.Libreria
-import com.example.filmania.common.Entyty.Media
-import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
-import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.FragmentTicketsBinding
-import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
 
@@ -131,7 +116,6 @@ class TicketsFragment : Fragment(), OnClickListener {
                 val vistoAnteriormentes = vistoAnteriormente.body()
                 val mediaAdapter = mBinding.rcVistoAnteriormente.adapter as VistoAnteriormenteAdapter
                 mediaAdapter.submitList(vistoAnteriormentes)
-                mediaAdapter.notifyDataSetChanged()
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "No hay peliculas disponibles", Toast.LENGTH_SHORT)
                     .show()
@@ -203,14 +187,6 @@ class TicketsFragment : Fragment(), OnClickListener {
         return mutableListOf(generoId, generoId2, generoId3)
     }
 
-
-
-
-
-    override fun onCLickGenero(genero: Genero) {
-        TODO("Not yet implemented")
-    }
-
     override fun onClickPelicula(pelicula: Peliculas) {
         savePeliid(pelicula.id)
         val VistoAnteriormenteService =
@@ -222,8 +198,6 @@ class TicketsFragment : Fragment(), OnClickListener {
                 val vistoAnteriormentes = vistoAnteriormente.body()
                 if (vistoAnteriormentes != null) {
                     cargarvistoanteriormente()
-                    val mediaAdapter = mBinding.rcVistoAnteriormente.adapter as VistoAnteriormenteAdapter
-                    mediaAdapter.notifyDataSetChanged()
                 }
 
             } catch (e: Exception) {
@@ -251,8 +225,7 @@ class TicketsFragment : Fragment(), OnClickListener {
                 val vistoAnteriormentes = vistoAnteriormente.body()
                 if (vistoAnteriormentes != null) {
                     cargarvistoanteriormente()
-                    val mediaAdapter = mBinding.rcVistoAnteriormente.adapter as VistoAnteriormenteAdapter
-                    mediaAdapter.notifyDataSetChanged()
+
                 }
                 cargarvistoanteriormente()
             } catch (e: Exception) {
@@ -267,33 +240,7 @@ class TicketsFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onClickNoticia(noticias: Noticias) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onClickLibreria(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreriaDelete(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusqueda(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaAdd(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedafav(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
 
     override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
         if (vistoAnteriormente.Tipo == 1) {
@@ -307,13 +254,6 @@ class TicketsFragment : Fragment(), OnClickListener {
 
     }
 
-    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickMedia(media: Media) {
-        TODO("Not yet implemented")
-    }
 
 
 }

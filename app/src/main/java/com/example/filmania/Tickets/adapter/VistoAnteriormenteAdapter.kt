@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.filmania.R
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.ItemPeliYSerieBinding
 
 class VistoAnteriormenteAdapter(private var listener: OnClickListener): ListAdapter<VistoAnteriormente, RecyclerView.ViewHolder>(VistoAnteriormenteDiffCallback()) {

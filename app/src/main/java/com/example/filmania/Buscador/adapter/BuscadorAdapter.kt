@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.filmania.R
 import com.example.filmania.common.Entyty.Busqueda
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListenerBusqueda
 import com.example.filmania.databinding.ItemBuscadorSerieBinding
 
-class BuscadorAdapter(private var listener: OnClickListener): ListAdapter<Busqueda, RecyclerView.ViewHolder>(BusquedaDiffCallback())
+class BuscadorAdapter(private var listener: OnClickListenerBusqueda): ListAdapter<Busqueda, RecyclerView.ViewHolder>(BusquedaDiffCallback())
 {
     private lateinit var context: Context
 

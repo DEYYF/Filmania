@@ -135,11 +135,11 @@ class RegistrarseActivity : AppCompatActivity() {
                     mBinding.tiPais.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                         override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                             val selectedCountry = parent.getItemAtPosition(position) as Country
-                            // Aquí puedes hacer algo con el país seleccionado
+
                         }
 
                         override fun onNothingSelected(parent: AdapterView<*>) {
-                            // Aquí puedes hacer algo cuando no se selecciona ningún país
+
                         }
                     }
                 }
@@ -170,15 +170,7 @@ class RegistrarseActivity : AppCompatActivity() {
             val genero = etgenero.text.toString().trim()
             val imagen = etImg.text.toString().trim()
 
-            if (isValidImageUrl(imagen)) {
-                if (isValidEmail(correo)) {
-                    RegisterUser(Username, Password, Password2, pais, correo, genero, imagen)
-                } else {
-                    Toast.makeText(this@RegistrarseActivity, "Formato de correo electrónico inválido", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                Toast.makeText(this@RegistrarseActivity, "URL de imagen inválida", Toast.LENGTH_SHORT).show()
-            }
+            RegisterUser(Username, Password, Password2, pais, correo, genero, imagen)
         }
     }
 
@@ -186,27 +178,34 @@ class RegistrarseActivity : AppCompatActivity() {
 
 
 
-    private fun ComprobarCampos(Username: String, Password: String, Password2: String, pais: String, correo: String, genero: String): Boolean {
-        if(Username.isEmpty() || Password.isEmpty() || Password2.isEmpty() || pais.isEmpty() || correo.isEmpty() || genero.isEmpty())
-        {
+
+    private fun ComprobarCampos(Username: String, Password: String, Password2: String, pais: String, correo: String, genero: String, imagen: String): Boolean {
+        if (Username.isEmpty() || Password.isEmpty() || Password2.isEmpty() || pais.isEmpty() || correo.isEmpty() || genero.isEmpty() || imagen.isEmpty()) {
             Toast.makeText(this, "Por favor llene todos los campos", Toast.LENGTH_SHORT).show()
-        }
-        else
-        {
-            if(Password == Password2)
-            {
-                password_correcto = Password
-                Toast.makeText(this, "Contraseñas correctas", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            else
-            {
+            return false
+        } else {
+            if (Password != Password2) {
                 Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                 return false
             }
+            if (!isValidPassword(Password)) {
+                Toast.makeText(this, "La contraseña debe tener al menos una letra mayúscula, un carácter especial y un número", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            if (!isValidEmail(correo)) {
+                Toast.makeText(this, "Formato de correo electrónico inválido", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            if (!isValidImageUrl(imagen)) {
+                Toast.makeText(this, "URL de imagen inválida", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            password_correcto = Password
+            Toast.makeText(this, "Todos los campos son válidos", Toast.LENGTH_SHORT).show()
+            return true
         }
-        return false
     }
+
 
     private fun RegisterUser(Username: String, Password: String,Password2: String, pais: String, correo: String, genero: String, imagen: String)
     {
@@ -215,7 +214,7 @@ class RegistrarseActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                if (ComprobarCampos(Username, Password, Password2, pais, correo, genero)) {
+                if (ComprobarCampos(Username, Password, Password2, pais, correo, genero, imagen)) {
                     val response = userService.registerUser(Usuario_nuevo(Username, Password, correo, genero, pais, imagen))
                     withContext(Dispatchers.Main) {
                         if (response.isSuccessful) {
@@ -224,8 +223,6 @@ class RegistrarseActivity : AppCompatActivity() {
                             RegisterBad()
                         }
                     }
-                }else{
-                    RegisterBad()
                 }
             } catch (e: Exception) {
                 Log.e("Error", e.message.toString())
@@ -245,5 +242,13 @@ class RegistrarseActivity : AppCompatActivity() {
     private fun isValidImageUrl(url: String): Boolean {
         return Patterns.WEB_URL.matcher(url).matches() && url.endsWith(".jpg") || url.endsWith(".jpeg") || url.endsWith(".png") || url.endsWith(".gif") || url.endsWith(".bmp") || url.endsWith(".webp") || url.endsWith(".svg")
     }
+
+    private fun isValidPassword(password: String): Boolean {
+        val passwordPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}$"
+        return password.matches(passwordPattern.toRegex())
+    }
+
+
+
 
 }

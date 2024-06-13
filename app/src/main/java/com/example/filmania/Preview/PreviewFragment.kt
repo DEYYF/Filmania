@@ -2,6 +2,7 @@ package com.example.filmania.Preview
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.FilmaniaApplication
 import com.example.filmania.Preview.Adapter.PreviewAdapter
-import com.example.filmania.Preview.Adapter.PreviewSerieAdapter
 import com.example.filmania.Retrofit.Peliculas.PeliculasService
 import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
 import com.example.filmania.common.Entyty.Busqueda
@@ -21,9 +21,10 @@ import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
 import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.OnClickListener
+import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.FragmentPreviewBinding
 import kotlinx.coroutines.launch
+import kotlin.math.log
 
 
 class PreviewFragment : Fragment(), OnClickListener {
@@ -79,7 +80,11 @@ class PreviewFragment : Fragment(), OnClickListener {
                 val pelicula = response.body()
                 val previewAdapter = mBinding.rcPreview.adapter as PreviewAdapter
                 previewAdapter.updatePelicula(pelicula)
+                Log.e("previewFragment", pelicula.toString())
+                Log.e("previewFragment", response.body().toString())
 
+            }else{
+                Log.e("previewFragment", response.errorBody().toString())
             }
         }
     }
@@ -96,9 +101,6 @@ class PreviewFragment : Fragment(), OnClickListener {
         fragmentManager.popBackStack()
     }
 
-    override fun onCLickGenero(genero: Genero) {
-        TODO("Not yet implemented")
-    }
 
     override fun onClickPelicula(pelicula: Peliculas) {
         val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
@@ -121,43 +123,8 @@ class PreviewFragment : Fragment(), OnClickListener {
         TODO("Not yet implemented")
     }
 
-    override fun onClickNoticia(noticias: Noticias) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreria(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickLibreriaDelete(Libreria: Libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusqueda(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaAdd(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedafav(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickBusquedaVerMasTarde(busqueda: Busqueda) {
-        TODO("Not yet implemented")
-    }
 
     override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickcontenido_libreria(contenidoLibreria: contenido_libreria) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickMedia(media: Media) {
         TODO("Not yet implemented")
     }
 
