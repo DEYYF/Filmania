@@ -8,26 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.FilmaniaApplication
-import com.example.filmania.Preview.Adapter.PreviewAdapter
 import com.example.filmania.Retrofit.Peliculas.PeliculasService
-import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
-import com.example.filmania.common.Entyty.Busqueda
-import com.example.filmania.common.Entyty.Genero
-import com.example.filmania.common.Entyty.Libreria
-import com.example.filmania.common.Entyty.Media
-import com.example.filmania.common.Entyty.Noticias
 import com.example.filmania.common.Entyty.Peliculas
-import com.example.filmania.common.Entyty.Series
-import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.FragmentPreviewBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 
-class PreviewFragment : Fragment(), OnClickListener {
+class PreviewFragment : Fragment() {
 
     private lateinit var mBinding: FragmentPreviewBinding
 
@@ -60,16 +49,11 @@ class PreviewFragment : Fragment(), OnClickListener {
     }
 
     private fun setupRecyclerView() {
-        val adapter = PreviewAdapter(this, null)
-        val previewLayoutManager = LinearLayoutManager(requireContext())
 
-        mBinding.rcPreview.layoutManager = previewLayoutManager
-        mBinding.rcPreview.adapter = adapter
+        mBinding.btnPlay.setOnClickListener {
+            onClickVer()
+        }
 
-        cargarpelicula()
-    }
-
-    private fun cargarpelicula() {
         val peli_id = catchpeliId()
         val service = FilmaniaApplication.retrofit.create(PeliculasService::class.java)
 
@@ -77,17 +61,21 @@ class PreviewFragment : Fragment(), OnClickListener {
             val response = service.getPelicula(peli_id)
 
             if (response.isSuccessful) {
-                val pelicula = response.body()
-                val previewAdapter = mBinding.rcPreview.adapter as PreviewAdapter
-                previewAdapter.updatePelicula(pelicula)
-                Log.e("previewFragment", pelicula.toString())
-                Log.e("previewFragment", response.body().toString())
+                val peliculas = response.body()!!
+                mBinding.tvNombre.text = peliculas.Titulo
+                mBinding.tvDescription.text = peliculas.Descripcion
+                mBinding.tvYear.text = peliculas.Ano.toString()
+                mBinding.tvDuracion.text = peliculas.Duracion .toString() + " Minutos"
+                Picasso.get().load(peliculas.Imagen).into(mBinding.ivPreview)
+
 
             }else{
                 Log.e("previewFragment", response.errorBody().toString())
             }
         }
     }
+
+
 
     private fun catchpeliId(): Long {
         val sharedPreferences = requireActivity().getSharedPreferences("MySharedPref", Context.MODE_PRIVATE)
@@ -101,32 +89,20 @@ class PreviewFragment : Fragment(), OnClickListener {
         fragmentManager.popBackStack()
     }
 
-
-    override fun onClickPelicula(pelicula: Peliculas) {
+    private fun onClickVer() {
         val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
         val url = FilmaniaApplication.listCines.random()
         intent.data = android.net.Uri.parse(url)
         startActivity(intent)
     }
 
-    override fun onTrailerClickPelicula(pelicula: Peliculas) {
+    private fun onClickTrailer(peliculas: Peliculas) {
         val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
-        intent.data = android.net.Uri.parse(pelicula.Trailer)
+        intent.data = android.net.Uri.parse(peliculas.Trailer)
         startActivity(intent)
     }
 
-    override fun onClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onTrailerClickSerie(serie: Series) {
-        TODO("Not yet implemented")
-    }
-
-
-    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
-        TODO("Not yet implemented")
-    }
 
 
 }

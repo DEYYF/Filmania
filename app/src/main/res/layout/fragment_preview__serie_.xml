@@ -9,11 +9,101 @@
     tools:context=".Preview.Preview_Serie_Fragment"
     android:background="@color/Darkblue">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_preview"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_preview"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/iv_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/imagen_cancion"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <!-- Vista para la capa negra semitransparente -->
+        <View
+            android:id="@+id/black_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_nombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/nombre_pelis"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_30sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_margin="@dimen/common_padding_default"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/year_pelis"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_nombre"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/common_padding_default"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_duracion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/duracion"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_nombre"
+            app:layout_constraintStart_toEndOf="@id/tv_year"
+            android:layout_margin="@dimen/common_padding_default" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/descripcion"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_year"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/common_padding_default"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play"
+            android:textColor="@color/black"
+            android:drawableLeft="@drawable/play_svgrepo_com__1_"
+            android:backgroundTint="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/common_padding_default"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/btn_trailer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/trailer"
+            android:textColor="@color/white"
+            android:drawableTint="@color/white"
+            android:drawableLeft="@drawable/film_svgrepo_com"
+            android:backgroundTint="@color/grey"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            app:layout_constraintStart_toEndOf="@id/btn_play"
+            android:layout_margin="@dimen/common_padding_default"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     <ImageButton
         android:id="@+id/btn_back"
@@ -22,8 +112,7 @@
         android:src="@drawable/back_svgrepo_com"
         android:background="#00000000"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:tint="@color/white"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 

@@ -8,24 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.FilmaniaApplication
-import com.example.filmania.Preview.Adapter.PreviewSerieAdapter
 import com.example.filmania.Retrofit.Series.SeriesService
-import com.example.filmania.Retrofit.VistoAnteriormente.VistoAnteriormente
-import com.example.filmania.common.Entyty.Busqueda
-import com.example.filmania.common.Entyty.Genero
-import com.example.filmania.common.Entyty.Libreria
-import com.example.filmania.common.Entyty.Media
-import com.example.filmania.common.Entyty.Noticias
-import com.example.filmania.common.Entyty.Peliculas
 import com.example.filmania.common.Entyty.Series
-import com.example.filmania.common.Entyty.contenido_libreria
-import com.example.filmania.common.utils.Listeners.OnClickListener
 import com.example.filmania.databinding.FragmentPreviewSerieBinding
+import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 
-class Preview_Serie_Fragment : Fragment(), OnClickListener {
+class Preview_Serie_Fragment : Fragment() {
 
     private lateinit var mBinding: FragmentPreviewSerieBinding
 
@@ -46,6 +36,10 @@ class Preview_Serie_Fragment : Fragment(), OnClickListener {
             navigateToGeneroFragment()
         }
 
+
+
+
+
         setupRecyclerView()
     }
 
@@ -60,13 +54,10 @@ class Preview_Serie_Fragment : Fragment(), OnClickListener {
 
 
     private fun setupRecyclerView() {
-        val PreviewAdapter = PreviewSerieAdapter(this, null)
-        val PreviewLayoutManager = LinearLayoutManager(requireContext())
-        mBinding.rcPreview.apply {
-            adapter = PreviewAdapter
-            layoutManager = PreviewLayoutManager
-        }
         cargarSerie()
+        mBinding.btnPlay.setOnClickListener{
+            onClickVer()
+        }
     }
 
 
@@ -78,9 +69,15 @@ class Preview_Serie_Fragment : Fragment(), OnClickListener {
             try {
                 val response = seriesService.getSerie(catchSerieId())
                 if (response.isSuccessful) {
-                    val serie = response.body()
-                    val PreviewAdapter = mBinding.rcPreview.adapter as PreviewSerieAdapter
-                    PreviewAdapter.updateSerie(serie)
+                    val serie = response.body()!!
+                    mBinding.tvNombre.text = serie.Titulo
+                    mBinding.tvDescription.text = serie.Descripcion
+                    mBinding.tvYear.text = serie.Ano.toString()
+                    mBinding.tvDuracion.text = serie.Temporadas.toString() + " Temporadas"
+                    Picasso.get().load(serie.Imagen).into(mBinding.ivPreview)
+                    mBinding.btnPlay.setOnClickListener {
+                        onClickTrailer(serie)
+                    }
 
                 }
             }catch (e: Exception){
@@ -95,34 +92,17 @@ class Preview_Serie_Fragment : Fragment(), OnClickListener {
 
         return serie_id
     }
-
-
-
-
-
-    override fun onClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onTrailerClickPelicula(pelicula: Peliculas) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onClickSerie(serie: Series) {
+    private fun onClickVer() {
         val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
         val url = FilmaniaApplication.listCines.random()
         intent.data = android.net.Uri.parse(url)
         startActivity(intent)
     }
 
-    override fun onTrailerClickSerie(serie: Series) {
+    private fun onClickTrailer(serie: Series) {
         val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
         intent.data = android.net.Uri.parse(serie.Trailer)
         startActivity(intent)
-    }
-
-    override fun onClickVistoAnteriormente(vistoAnteriormente: VistoAnteriormente) {
-        TODO("Not yet implemented")
     }
 
 }

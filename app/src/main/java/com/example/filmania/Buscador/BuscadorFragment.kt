@@ -148,6 +148,22 @@ class BuscadorFragment : Fragment(), OnClickListenerBusqueda {
         Toast.makeText(requireContext(), "Añadido a ver más tarde", Toast.LENGTH_SHORT).show()
     }
 
+    private fun navigateToGeneroFragment(int: Int) {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        if (int == 1) {
+            val fragment = PreviewFragment()
+            fragmentTransaction.add(android.R.id.content, fragment)
+        } else if (int == 2) {
+            val fragment = Preview_Serie_Fragment()
+            fragmentTransaction.add(android.R.id.content, fragment)
+        }
+
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+
 
     override fun onClickBusqueda(busqueda: Busqueda) {
 
@@ -164,12 +180,8 @@ class BuscadorFragment : Fragment(), OnClickListenerBusqueda {
                 }
             }
 
-            val fragmentManager = requireActivity().supportFragmentManager
-            val fragmentTransaction = fragmentManager.beginTransaction()
-            val fragment = PreviewFragment()
-            fragmentTransaction.add(android.R.id.content, fragment)
-            fragmentTransaction.addToBackStack(null)
-            fragmentTransaction.commit()
+            navigateToGeneroFragment(1)
+
 
         }else if (busqueda.Tipo == "Serie"){
             saveserieid(busqueda.id)
@@ -185,12 +197,7 @@ class BuscadorFragment : Fragment(), OnClickListenerBusqueda {
 
                 }
             }
-
-            val fragment = Preview_Serie_Fragment()
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.hostFragment, fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            navigateToGeneroFragment(2)
         }
 
     }
