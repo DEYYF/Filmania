@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
+import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.filmania.FilmaniaApplication
@@ -28,6 +30,9 @@ class IniciarSesionActivity : AppCompatActivity() {
         mBinding = ActivityIniciarSesionBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+
+        cargarLogo()
+
         mBinding.btIniciarSesion.setOnClickListener {
             LogIn()
         }
@@ -36,12 +41,33 @@ class IniciarSesionActivity : AppCompatActivity() {
             navigateToRegistroActivity()
         }
 
+
+
+        mBinding.tilPassword.editText?.setOnEditorActionListener { _, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE ||
+                event?.action == KeyEvent.ACTION_DOWN && event.keyCode == KeyEvent.KEYCODE_ENTER) {
+                if (!mBinding.tilUsername.editText?.text.isNullOrEmpty() &&
+                    !mBinding.tilPassword.editText?.text.isNullOrEmpty()) {
+                    LogIn()
+                }
+                true
+            } else {
+                false
+            }
+        }
+
+
+
+
+
+
+    }
+
+
+    private fun cargarLogo() {
         Glide.with(this)
             .load("https://s3.amazonaws.com/qreatech.com/Logo+Filmania+(1).jpg")
             .into(mBinding.ivBackground)
-
-
-
     }
 
     private fun LogIn() {

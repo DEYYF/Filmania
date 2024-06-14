@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmania.FilmaniaApplication
 import com.example.filmania.Libreria_Contenido.Contenido_LibreriaFragment
 import com.example.filmania.PantallaPrincipal.LogActivity
+import com.example.filmania.Preview.PreviewFragment
+import com.example.filmania.Preview.Preview_Serie_Fragment
 import com.example.filmania.R
 import com.example.filmania.Retrofit.Librerias.LibreriaService
 import com.example.filmania.Retrofit.Usuario.UsuarioService
@@ -55,6 +57,8 @@ class UserFragment : Fragment(), OnClickListenerLibreria {
         cargarUsuario()
         setuprecyclerview()
 
+
+
         mBinding.btnEdit.setOnClickListener {
             activarModoEditar()
         }
@@ -82,6 +86,10 @@ class UserFragment : Fragment(), OnClickListenerLibreria {
 
         mBinding.btnBack.setOnClickListener {
             goBack()
+        }
+
+        mBinding.ivPerfil.setOnClickListener {
+            navigatePreviewImageFragment()
         }
     }
 
@@ -308,6 +316,15 @@ class UserFragment : Fragment(), OnClickListenerLibreria {
     private fun isValidPassword(password: String): Boolean {
         val passwordPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}$"
         return password.matches(passwordPattern.toRegex())
+    }
+
+    private fun navigatePreviewImageFragment() {
+        val fragmentManager = requireActivity().supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        val fragment = PreviewImageFragment()
+        fragmentTransaction.add(android.R.id.content, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
 
 

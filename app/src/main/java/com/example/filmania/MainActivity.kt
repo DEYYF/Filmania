@@ -1,5 +1,6 @@
 package com.example.filmania
 
+import PreviewImageFragment
 import UserFragment
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,10 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.ivSettings.setOnClickListener {
             navigatetoUserFragment()
+        }
+
+        mBinding.ivPerfil.setOnClickListener {
+            gotoPreviewImageFragment()
         }
 
     }
@@ -143,6 +148,17 @@ class MainActivity : AppCompatActivity() {
         val fragmentTransaction = fragmentManager.beginTransaction()
 
         val fragment = UserFragment()
+        fragmentTransaction.add(android.R.id.content, fragment)
+
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+
+    private fun gotoPreviewImageFragment() {
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        val fragment = PreviewImageFragment()
         fragmentTransaction.add(android.R.id.content, fragment)
 
         fragmentTransaction.addToBackStack(null)
